@@ -1,0 +1,54 @@
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  
+  // VAIKIMISI SEADED: Kõik on keelatud
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'wait_for_update': 500
+  });
+
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true });
+
+  // Helper funktsioon sündmuste logimiseks
+  function aurinLog(eventName, extraParams = {}) {
+    gtag('event', eventName, { 'system': 'aurin_os', ...extraParams });
+    console.log('Aurin Telemetry:', eventName, extraParams);
+  }
+</script>
+<div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(5,5,5,0.98); border-top: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(15px); z-index: 10000; padding: 20px; font-family: 'Inter', sans-serif;">
+    <div style="max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 30px;">
+        <p style="color: rgba(255,255,255,0.8); font-size: 0.8rem; line-height: 1.6; margin: 0; font-weight: 300;">
+            Aurin OS kasutab anonüümset analüütikat süsteemi optimeerimiseks. Jätkates nõustute meie 
+            <a href="termsB.html" style="color: #d4af37; text-decoration: none; border-bottom: 1px solid rgba(212,175,55,0.2);">andmetöötluse põhimõtetega</a>.
+        </p>
+        <button onclick="acceptAurinCookies()" style="background: transparent; border: 1px solid #d4af37; color: #d4af37; padding: 10px 25px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; white-space: nowrap; transition: 0.3s;">
+            Nõustun
+        </button>
+    </div>
+</div>
+
+<script>
+    // Kontrolli luba laadimisel
+    if (!localStorage.getItem('aurin_consent_given')) {
+        document.getElementById('cookie-banner').style.display = 'block';
+    } else {
+        grantAurinConsent();
+    }
+
+    function acceptAurinCookies() {
+        localStorage.setItem('aurin_consent_given', 'true');
+        document.getElementById('cookie-banner').style.display = 'none';
+        grantAurinConsent();
+    }
+
+    function grantAurinConsent() {
+        gtag('consent', 'update', {
+            'analytics_storage': 'granted'
+        });
+        console.log('Aurin OS: Consent Granted. Telemetry Active.');
+    }
+</script>
