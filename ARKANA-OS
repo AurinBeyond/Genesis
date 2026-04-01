@@ -1,0 +1,23 @@
+# ARKANA-OS // Cognitive Management System
+
+Minimalistlik digitaalne operatsioonisüsteem, mis on loodud tähelepanu filtreerimiseks, kognitiivse müra vähendamiseks ja kasutaja juhtimiseks läbi selge, lineaarse teadlikkuse voolu.
+
+---
+
+## 🏗️ Arhitektuur (The Architecture)
+
+Süsteem koosneb kuuest järjestikusest sõlmest:
+
+1. `index.html` — sisenemispunkt ja psühholoogiline ankur  
+2. `void.html` — 5-minutiline sundvaikus (Reset Layer)  
+3. `core.html` — süsteemi keskus ja fookusharjutus  
+4. `delta-insight.html` — tähelepanekute salvestamine (LocalStorage)  
+5. `sigma-core.html` — süsteemi teooria ja süvakiht ("Deep Code")  
+6. `sigma-protocol.html` — operatiivne päevarutiin  
+
+---
+
+## 🔁 Süsteemi voog (Flow)
+
+```text
+index → void → core → delta-insight → sigma-core → sigma-protocol
