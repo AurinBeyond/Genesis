@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Süsteem aktiveeritud | Aurin OS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-dim: rgba(255, 255, 255, 0.72);
+            --text-soft: rgba(255, 255, 255, 0.52);
+            --gold-soft: rgba(212, 175, 55, 0.08);
+            --gold-border: rgba(212, 175, 55, 0.18);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(212,175,55,0.06), transparent 35%),
+                linear-gradient(180deg, #090909 0%, #050505 100%);
+            color: white;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .success-shell {
+            width: 100%;
+            max-width: 700px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-card {
+            width: 100%;
+            padding: 56px 40px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+
+        .status-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-soft);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 15px var(--gold);
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .check-mark {
+            display: inline-block;
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            line-height: 1;
+        }
+
+        h1 {
+            margin: 0 0 16px;
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            font-weight: 800;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .confirmation-text {
+            margin: 0 auto 32px;
+            max-width: 500px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-dim);
+        }
+
+        .steps-box {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin-bottom: 32px;
+        }
+
+        .steps-box h2 {
+            margin: 0 0 20px;
+            font-size: 0.8rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .step-num { color: var(--gold); font-weight: 800; font-size: 0.9rem; }
+        .step-text { color: var(--text-dim); line-height: 1.7; font-size: 0.95rem; }
+
+        .next-step-box {
+            text-align: left;
+            background: var(--gold-soft);
+            border: 1px solid var(--gold-border);
+            padding: 24px;
+            margin-bottom: 35px;
+        }
+
+        .next-step-box h3 {
+            margin: 0 0 10px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .next-step-box p {
+            margin: 0;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .btn-group { display: grid; gap: 16px; }
+
+        .btn-primary {
+            padding: 20px;
+            background: white;
+            color: black;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        .btn-secondary {
+            padding: 16px;
+            border: 1px solid var(--border);
+            color: white;
+            font-size: 0.85rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: transparent;
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover { background: rgba(255,255,255,0.05); }
+
+        .support-box {
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            line-height: 1.8;
+        }
+
+        .support-box a { color: var(--gold); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .success-card { padding: 40px 20px; }
+            .step { grid-template-columns: 30px 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="success-shell">
+        <div class="success-card">
+            <div class="status-line">
+                <span class="status-dot"></span>
+                <span>Purchase confirmed // next step available</span>
+            </div>
+
+            <div class="check-mark" role="img" aria-label="Kinnitus">✓</div>
+
+            <h1>Genesis aktiveeritud</h1>
+
+            <p class="confirmation-text" role="status" aria-live="polite">
+                Tehing on kinnitatud. Ligipääs sinu Aurin OS materjalidele on edukalt aktiveeritud.
+            </p>
+
+            <div class="steps-box">
+                <h2>Olulised juhised</h2>
+                <div class="step">
+                    <div class="step-num">01</div>
+                    <div class="step-text"><strong>Kontrolli e-posti:</strong> Gumroad on saatnud sulle ametliku kviitungi ja otselingi materjalidele.</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">02</div>
+                    <div class="step-text"><strong>Hoia alles ostukinnitus:</strong> See e-kiri sisaldab sinu ametlikku ostukinnitust ja püsivat ligipääsuinfot.</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">03</div>
+                    <div class="step-text"><strong>Käivita protokoll:</strong> Süsteemi koheseks rakendamiseks alusta allpool olevast nupust.</div>
+                </div>
+            </div>
+
+            <div class="next-step-box">
+                <h3>Sinu missioon</h3>
+                <p>Genesis Audit ei ole lihtsalt lugemismaterjal. Järgmine samm avab sinu 24h protokolli ja aitab sul süsteemi kohe praktiliselt rakendama hakata.</p>
+            </div>
+
+            <div class="btn-group">
+                <a href="protocol.html" class="btn-primary">Käivita 24h protokoll</a>
+                <a href="index.html" class="btn-secondary">Tagasi Genesis Hubi</a>
+            </div>
+
+            <div class="support-box">
+                Kui Gumroadi e-kiri ei saabu või ligipääs ei tööta, kirjuta meile:
+                <br>
+                <a href="mailto:contact.puresoul@proton.me">contact.puresoul@proton.me</a>
+                <div style="margin-top: 15px; font-size: 0.7rem; opacity: 0.4; font-style: italic;">
+                    Märkus: Digitaalsed failid ja ostuga seotud ligipääsud on hallatud Gumroadi infrastruktuuri kaudu.
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
