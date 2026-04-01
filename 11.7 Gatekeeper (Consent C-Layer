@@ -1,0 +1,34 @@
+<div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(5,5,5,0.95); border-top: 1px solid rgba(212,175,55,0.2); backdrop-filter: blur(10px); z-index: 9999; padding: 20px; font-family: 'Inter', sans-serif;">
+    <div style="max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+        <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem; line-height: 1.5; margin: 0; letter-spacing: 0.5px;">
+            Aurin OS kasutab anonüümset analüütikat, et parandada süsteemi tööd. Jätkates nõustute meie 
+            <a href="termsB.html" style="color: #d4af37; text-decoration: none; border-bottom: 1px solid rgba(212,175,55,0.3);">privaatsustingimustega</a>.
+        </p>
+        <button onclick="acceptCookies()" style="background: transparent; border: 1px solid #d4af37; color: #d4af37; padding: 8px 20px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s;">
+            Nõustun
+        </button>
+    </div>
+</div>
+
+<script>
+    // Kontrollime, kas nõusolek on juba antud
+    if (!localStorage.getItem('aurin_cookies_accepted')) {
+        document.getElementById('cookie-banner').style.display = 'block';
+    } else {
+        activateAnalytics(); // Kui nõusolek on olemas, käivitame kohe
+    }
+
+    function acceptCookies() {
+        localStorage.setItem('aurin_cookies_accepted', 'true');
+        document.getElementById('cookie-banner').style.display = 'none';
+        activateAnalytics();
+    }
+
+    function activateAnalytics() {
+        // Siin käivitame sinu aurinLog ja GA4 funktsionaalsuse
+        console.log('Närvisüsteem aktiveeritud: Consent antud.');
+        if (typeof gtag === 'function') {
+            gtag('consent', 'update', { 'analytics_storage': 'granted' });
+        }
+    }
+</script>
