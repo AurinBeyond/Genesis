@@ -1,0 +1,74 @@
+# ARKANA-OS // CI/CD PIPELINE v1.4
+# See workflow teostab automaatse kontrolli ja avalikustab süsteemi GitHub Pages-is.
+# Kasutab GitHubi ametlikku build -> upload artifact -> deploy mudelit.
+
+name: ARKANA-OS CI/CD
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Üldised õigused on seatud ainult lugemiseks
+permissions:
+  contents: read
+
+# Lubame ainult ühe jooksvat deploy-protsessi korraga, et vältida konflikte
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # ETAPP 1: VALIDEERIMINE JA ARTIFACTI LOOMINE
+  validate-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Strict File Audit
+        # Kontrollime, et kõik 6 süsteemi sõlme ja CSS fail on füüsiliselt olemas
+        run: |
+          for file in index.html void.html core.html delta-insight.html sigma-core.html sigma-protocol.html assets/css/style.css; do
+            if [ ! -f "$file" ]; then
+              echo "❌ ERROR: Missing critical system node: $file"
+              exit 1
+            fi
+          done
+          echo "✅ All required system nodes exist."
+
+      - name: Validate Stylesheet Links
+        # Kontrollime, et iga HTML fail viitaks korrektselt ühisele style.css failile
+        run: |
+          for file in index.html void.html core.html delta-insight.html sigma-core.html sigma-protocol.html; do
+            if ! grep -q 'assets/css/style.css' "$file"; then
+              echo "❌ ERROR: $file is not linked to assets/css/style.css"
+              exit 1
+            fi
+          done
+          echo "✅ All nodes are correctly linked to the global stylesheet."
+
+      - name: Upload Pages Artifact
+        # Pakime failid üles järgmise etapi jaoks (v4 on uusim standard)
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+
+  # ETAPP 2: AVALIKUSTAMINE (DEPLOY)
+  deploy:
+    needs: validate-and-build
+    runs-on: ubuntu-latest
+    # Kõrgemad õigused on antud ainult siia, kus neid reaalselt vaja on
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
