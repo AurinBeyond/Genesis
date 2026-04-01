@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CORE // AURIN OS</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --panel-bg: rgba(255, 255, 255, 0.025);
+            --text-color: rgba(255, 255, 255, 0.9);
+            --accent-color: #d4af37;
+            --dim-text: rgba(255, 255, 255, 0.16);
+            --border-soft: rgba(255, 255, 255, 0.08);
+            --border-gold: rgba(212, 175, 55, 0.28);
+        }
+
+        * { box-sizing: border-box; outline-color: var(--accent-color); }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 48px 20px;
+        }
+
+        .status-bar {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--dim-text);
+            text-transform: uppercase;
+            z-index: 20;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .shell {
+            border: 1px solid var(--border-soft);
+            background: var(--panel-bg);
+            padding: 42px 28px 28px;
+            backdrop-filter: blur(10px);
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 42px;
+        }
+
+        .intro .label {
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            margin-bottom: 18px;
+        }
+
+        .intro h1 {
+            margin: 0 0 18px;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .intro p {
+            max-width: 540px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .panel {
+            border: 1px solid var(--border-soft);
+            padding: 24px 22px;
+            background: rgba(255, 255, 255, 0.01);
+            transition: border-color 0.4s;
+        }
+
+        .panel:hover { border-color: rgba(255, 255, 255, 0.15); }
+
+        .panel-title {
+            font-family: monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--dim-text);
+            margin-bottom: 16px;
+        }
+
+        .status-value {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .status-value .accent { color: var(--accent-color); font-weight: 500; }
+
+        .practice-text {
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 18px;
+        }
+
+        .practice-steps {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .practice-steps li {
+            padding: 12px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .practice-steps li:first-child { border-top: none; }
+
+        .practice-action {
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .practice-button {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-color);
+            padding: 14px 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .practice-button:hover:not(:disabled) {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .practice-button:disabled {
+            opacity: 0.4;
+            cursor: wait;
+            border-color: var(--dim-text);
+        }
+
+        .practice-timer {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: var(--dim-text);
+            font-weight: 300;
+        }
+
+        .timer-active { color: var(--accent-color); }
+
+        .practice-result {
+            margin-top: 18px;
+            min-height: 20px;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .nav-card {
+            display: block;
+            text-decoration: none;
+            color: var(--text-color);
+            border: 1px solid var(--border-soft);
+            padding: 20px 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255,255,255,0.01);
+        }
+
+        .nav-card:hover {
+            border-color: var(--border-gold);
+            background: rgba(212, 175, 55, 0.03);
+            transform: translateY(-2px);
+        }
+
+        .nav-card .nav-label {
+            font-family: monospace;
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+        }
+
+        .nav-card h3 { margin: 0 0 8px; font-size: 0.95rem; font-weight: 500; }
+
+        .nav-card p {
+            margin: 0;
+            color: var(--dim-text);
+            line-height: 1.5;
+            font-size: 0.85rem;
+        }
+
+        .footer-note {
+            margin-top: 32px;
+            text-align: center;
+            color: var(--dim-text);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 760px) {
+            .nav-grid { grid-template-columns: 1fr; }
+            .intro h1 { font-size: 1.8rem; }
+            .shell { padding: 32px 18px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar">Status: Baseline Stable // Layer: Core</div>
+
+    <main class="container">
+        <section class="shell">
+            <header class="intro">
+                <div class="label">Core Interface</div>
+                <h1>Baasseadistus on aktiivne.</h1>
+                <p>
+                    Reset on tehtud. Ära hakka uut infot koguma. 
+                    Esimene liigutus on kohalolu, mitte analüüs.
+                </p>
+            </header>
+
+            <div class="grid">
+                <section class="panel">
+                    <div class="panel-title">Süsteemi staatus</div>
+                    <div class="status-value">
+                        <span class="accent">Baseline: Stable.</span><br />
+                        Noise level reduced.<br />
+                        Süsteem on kalibreeritud.
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-title">Esimene praktika</div>
+                    <div class="practice-text">
+                        Taasta oma suhe ruumiga. Mitte lugemine, vaid märkamine.
+                    </div>
+
+                    <ul class="practice-steps">
+                        <li>Fikseeri keha. Ära liiguta.</li>
+                        <li>Pane tähele ühte punkti enda ees.</li>
+                        <li>Ära hinda, ära kontrolli hingamist.</li>
+                        <li>Jää paigale 60-ks sekundiks.</li>
+                    </ul>
+
+                    <div class="practice-action">
+                        <button class="practice-button" id="practiceStart">Käivita praktika</button>
+                        <div class="practice-timer" id="practiceTimer">01:00</div>
+                    </div>
+
+                    <div class="practice-result" id="practiceResult" aria-live="polite"></div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-title">Navigatsioon</div>
+                    <div class="nav-grid">
+                        <a class="nav-card" href="continuation.html">
+                            <div class="nav-label">01</div>
+                            <h3>Continuation</h3>
+                            <p>Sügavam kood. Süsteemi teooria.</p>
+                        </a>
+                        <a class="nav-card" href="notes.html">
+                            <div class="nav-label">02</div>
+                            <h3>System Notes</h3>
+                            <p>Salvesta üks tähelepanek.</p>
+                        </a>
+                        <a class="nav-card" href="void.html">
+                            <div class="nav-label">03</div>
+                            <h3>Reset Again</h3>
+                            <p>Puhasta liin uuesti.</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+
+            <div class="footer-note">Aurin OS // integrate > collect</div>
+        </section>
+    </main>
+
+    <script>
+        const btn = document.getElementById('practiceStart');
+        const timerDisplay = document.getElementById('practiceTimer');
+        const result = document.getElementById('practiceResult');
+
+        let isRunning = false;
+        let timeLeft = 60;
+
+        function updateDisplay() {
+            const s = timeLeft % 60;
+            timerDisplay.textContent = `00:${s.toString().padStart(2, '0')}`;
+        }
+
+        btn.addEventListener('click', () => {
+            if (isRunning) return;
+
+            isRunning = true;
+            btn.disabled = true;
+            btn.textContent = 'Praktika aktiivne';
+            timerDisplay.classList.add('timer-active');
+            result.textContent = '';
+
+            const interval = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    isRunning = false;
+                    btn.disabled = false;
+                    btn.textContent = 'Käivita uuesti';
+                    timerDisplay.classList.remove('timer-active');
+                    result.textContent = 'Praktika lõpetatud. Märka vaikust.';
+                    timeLeft = 60; 
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
