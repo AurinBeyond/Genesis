@@ -6,12 +6,30 @@
     <title>Akadeemia | Aurin OS v10.1 Genesis</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Lisa-stiil kindlustamaks, et nupp on õigel kohal */
+        .cta-spacing {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .pricing-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
     <nav class="nav-container">
         <div class="nav-content">
             <a href="index.html" class="logo">Aurin OS</a>
             <div class="nav-links">
+                <a href="index.html">Avaleht</a>
                 <a href="vsl.html">Vaatlus</a>
                 <a href="offer.html" class="active">Akadeemia</a>
                 <a href="disclaimer.html">Vastutus</a>
@@ -28,31 +46,39 @@
 
         <section class="content-block">
             <div class="pricing-panel">
-                <p class="eyebrow">Ainsuse Pakett</p>
-                <h2>Genesis Audit & Raamistik</h2>
+                <p class="eyebrow" style="color: #d4af37; text-transform: uppercase; letter-spacing: 2px;">Ainsuse Pakett</p>
+                <h2 style="margin: 10px 0 25px 0;">Genesis Audit & Raamistik</h2>
                 
-                <ul class="package-features">
-                    <li class="feature-item"><span>✓</span> Täielik ligipääs Aurin OS v10 raamistikule</li>
-                    <li class="feature-item"><span>✓</span> 4-nädalane juhendatud auditiprotsess</li>
-                    <li class="feature-item"><span>✓</span> Personaalsed integratsioonitööriistad</li>
-                    <li class="feature-item"><span>✓</span> Eluaegne ligipääs tulevastele uuendustele</li>
+                <ul class="package-features" style="list-style: none; padding: 0; text-align: left;">
+                    <li class="feature-item" style="margin-bottom: 15px; display: flex; align-items: center;">
+                        <span style="color: #d4af37; margin-right: 15px; font-weight: bold;">✓</span> Täielik ligipääs Aurin OS v10 raamistikule
+                    </li>
+                    <li class="feature-item" style="margin-bottom: 15px; display: flex; align-items: center;">
+                        <span style="color: #d4af37; margin-right: 15px; font-weight: bold;">✓</span> 4-nädalane juhendatud auditiprotsess
+                    </li>
+                    <li class="feature-item" style="margin-bottom: 15px; display: flex; align-items: center;">
+                        <span style="color: #d4af37; margin-right: 15px; font-weight: bold;">✓</span> Personaalsed integratsioonitööriistad
+                    </li>
+                    <li class="feature-item" style="margin-bottom: 15px; display: flex; align-items: center;">
+                        <span style="color: #d4af37; margin-right: 15px; font-weight: bold;">✓</span> Eluaegne ligipääs tulevastele uuendustele
+                    </li>
                 </ul>
 
-                <div class="cta-spacing" style="margin-top: 40px;">
+                <div class="cta-spacing">
                     <a href="https://aurinbeyond.gumroad.com/" class="cta-main" target="_blank" rel="noopener noreferrer">Sisenen Akadeemiasse</a>
                 </div>
             </div>
         </section>
 
-        <section class="content-block">
+        <section class="content-block" style="text-align: center; margin-top: 60px;">
             <h3>Mida oodata pärast sisenemist?</h3>
-            <p>Pärast edukat registreerumist suunatakse sind koheselt Aurin OS Genesis keskkonda. See ei ole kursus, vaid operatsioonisüsteem sinu reaalsuse auditeerimiseks ja ümberkirjutamiseks.</p>
+            <p style="max-width: 700px; margin: 20px auto; opacity: 0.8;">Pärast edukat registreerumist suunatakse sind koheselt Aurin OS Genesis keskkonda. See ei ole kursus, vaid operatsioonisüsteem sinu reaalsuse auditeerimiseks ja ümberkirjutamiseks.</p>
         </section>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; 2024 Aurin OS. Kõik õigused kaitstud.</p>
+            <p>&copy; 2026 Aurin OS. Kõik õigused kaitstud.</p>
             <div class="footer-links">
                 <a href="disclaimer.html">Vastutusest loobumine</a>
             </div>
