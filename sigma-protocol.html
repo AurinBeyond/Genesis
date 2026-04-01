@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PROTOCOL // AURIN OS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: rgba(255, 255, 255, 0.9);
+            --accent-color: #d4af37;
+            --dim-text: rgba(255, 255, 255, 0.28);
+            --border-soft: rgba(255, 255, 255, 0.08);
+        }
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+        .status-bar {
+            position: fixed; top: 25px; left: 25px;
+            font-family: monospace; font-size: 11px;
+            letter-spacing: 2px; color: rgba(255, 255, 255, 0.15);
+            text-transform: uppercase; z-index: 100;
+        }
+        .container {
+            width: 90%; max-width: 500px;
+            padding: 140px 0 80px;
+            animation: fadeIn 2s ease;
+        }
+        .label {
+            font-family: monospace; font-size: 10px;
+            letter-spacing: 4px; color: var(--accent-color);
+            text-transform: uppercase; margin-bottom: 20px;
+            display: block;
+        }
+        h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 45px; color: #fff; }
+        .protocol-list { list-style: none; padding: 0; margin: 0 0 60px 0; }
+        .protocol-item {
+            display: flex; justify-content: space-between;
+            padding: 24px 0; border-bottom: 1px solid var(--border-soft);
+            align-items: flex-start;
+        }
+        .protocol-item:last-child { border-bottom: none; }
+        .p-key {
+            font-family: monospace; font-size: 11px;
+            color: var(--dim-text); text-transform: uppercase;
+            width: 110px; flex-shrink: 0; padding-top: 5px;
+        }
+        .p-value { font-size: 1rem; color: rgba(255, 255, 255, 0.8); }
+        .p-value strong { color: var(--accent-color); font-weight: 500; }
+        .system-exit { margin-top: 40px; text-align: center; }
+        .btn-exit {
+            display: inline-block; text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color); padding: 16px 45px;
+            font-size: 0.8rem; letter-spacing: 3px;
+            text-transform: uppercase; transition: all 0.4s ease;
+        }
+        .btn-exit:hover, .btn-exit:focus-visible {
+            border-color: var(--accent-color); color: var(--accent-color);
+            outline: 1px solid var(--accent-color); outline-offset: 4px;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 600px) {
+            .container { padding: 100px 0 60px; }
+            .protocol-item { flex-direction: column; padding: 20px 0; }
+            .p-key { margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar">Status: Operational // Sigma Protocol</div>
+    <main class="container">
+        <span class="label">Daily Deployment</span>
+        <h1>Süsteemi režiim.</h1>
+        <ul class="protocol-list">
+            <li class="protocol-item">
+                <div class="p-key">01 / Algus</div>
+                <div class="p-value">Käivita <strong>Void</strong> režiim kohe pärast ärkamist.</div>
+            </li>
+            <li class="protocol-item">
+                <div class="p-key">02 / Intervall</div>
+                <div class="p-value">Kasuta <strong>Core</strong> ankrut iga 4 tunni järel.</div>
+            </li>
+            <li class="protocol-item">
+                <div class="p-key">03 / Filter</div>
+                <div class="p-value">Rakenda <strong>Mikro-stoppi</strong> (3s) enne iga uut impulssi.</div>
+            </li>
+            <li class="protocol-item">
+                <div class="p-key">04 / Delta</div>
+                <div class="p-value">Salvesta üks tähelepanek <strong>Insight</strong> kihti päeva lõpus.</div>
+            </li>
+        </ul>
+        <div class="system-exit">
+            <a href="core.html" class="btn-exit">Tagasi keskusesse</a>
+        </div>
+    </main>
+</body>
+</html>
