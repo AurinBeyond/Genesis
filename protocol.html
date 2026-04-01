@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protokoll: Esimesed 24h | Aurin OS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-dim: rgba(255, 255, 255, 0.7);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: white;
+            line-height: 1.8;
+            background: 
+                radial-gradient(circle at top right, rgba(212,175,55,0.04), transparent 40%),
+                linear-gradient(180deg, #070707 0%, #050505 100%);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .protocol-wrapper {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .protocol-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header-label {
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            color: var(--gold);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 15px;
+            opacity: 0.6;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            line-height: 1.1;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .intro-text {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            margin-top: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .phase {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+                        border-color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+                        background 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+                        box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .phase:hover {
+            border-color: rgba(212, 175, 55, 0.25);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .phase-num {
+            position: absolute;
+            top: -12px;
+            left: 30px;
+            background: var(--gold);
+            color: black;
+            font-weight: 800;
+            padding: 4px 14px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            color: white;
+            margin: 10px 0 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .phase-content ul {
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        .phase-content li {
+            margin-bottom: 16px;
+            padding-left: 28px;
+            position: relative;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .phase-content li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            opacity: 0.6;
+        }
+
+        .phase-content strong {
+            color: rgba(255,255,255,0.95);
+            font-weight: 700;
+        }
+
+        .support-note {
+            margin: 60px auto 20px;
+            padding: 25px;
+            border: 1px dashed var(--border);
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            text-align: center;
+            max-width: 680px;
+        }
+
+        .support-note a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .support-note a:hover { opacity: 0.7; }
+
+        .protocol-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn-hub {
+            display: inline-block;
+            padding: 18px 45px;
+            background: transparent;
+            color: white;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .btn-hub:hover {
+            border-color: white;
+            background: white;
+            color: black;
+        }
+
+        @media (max-width: 600px) {
+            .phase { padding: 35px 20px; }
+            h1 { font-size: 1.7rem; }
+            .protocol-wrapper { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="protocol-wrapper">
+        <header class="protocol-header">
+            <span class="header-label">First 24 Hours</span>
+            <h1>24h Protokoll</h1>
+            <p class="intro-text">
+                Süsteemi aktiveerimine ei ole ühekordne sündmus, vaid protsess. Järgi neid samme esimese 24 tunni jooksul, et luua selge ja rahulik algus Genesis Auditiga töötamiseks.
+            </p>
+        </header>
+
+        <section class="timeline">
+            
+            <article class="phase">
+                <span class="phase-num">0 - 1 tund</span>
+                <h2>Ettevalmistus ja vaikus</h2>
+                <div class="phase-content">
+                    <ul>
+                        <li><strong>Kontrolli ligipääsu:</strong> Veendu, et sul on Gumroadist saadud materjalid avatud ja vajadusel salvestatud, et saaksid neile rahulikult tagasi tulla.</li>
+                        <li><strong>Digitaalne vaikus:</strong> Võimalusel pane telefon "Do Not Disturb" režiimile, et anda endale esimese tunni jooksul rohkem ruumi ja vaikust.</li>
+                        <li><strong>Esmane vaatlus:</strong> Sirvi Audit esmalt rahulikult läbi. Ära hakka veel kõike täitma — lase infol kõigepealt kohale jõuda.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="phase">
+                <span class="phase-num">1 - 6 tundi</span>
+                <h2>Vundamendi kaardistamine</h2>
+                <div class="phase-content">
+                    <ul>
+                        <li><strong>Blokk 01:</strong> Alusta Genesis Auditi esimese osa täitmist. Ole enda vastu aus – see on sinu baasjoon, millelt algab selgem edasiliikumine.</li>
+                        <li><strong>Vastupanu märkamine:</strong> Kui tunned teatud küsimuste juures ebamugavust, siis pane see tähele. Just seal asub sinu suurim kasvupotentsiaal.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="phase">
+                <span class="phase-num">6 - 24 tundi</span>
+                <h2>Integratsioon</h2>
+                <div class="phase-content">
+                    <ul>
+                        <li><strong>Õhtune rahunemine:</strong> Võimalusel vähenda ekraaniaega 1–2 tundi enne magamaminekut, et jätta mõtetele rohkem ruumi settida.</li>
+                        <li><strong>Hommikune fookus:</strong> Jätka täitmist kohe pärast ärkamist, enne kui avad sotsiaalmeedia. See on aeg, kus su meel on kõige rahulikum ja vastuvõtlikum.</li>
+                        <li><strong>Fikseeri suund:</strong> Defineeri üks selge samm, mille astud järgmise 7 päeva jooksul, tuginedes oma esimestele tähelepanekutele.</li>
+                    </ul>
+                </div>
+            </article>
+
+        </section>
+
+        <div class="support-note">
+            Kui sul puudub ligipääs materjalidele või mõni link ei tööta, kontrolli esmalt oma Gumroadi e-kirja. Vajadusel kirjuta meile: <a href="mailto:contact.puresoul@proton.me">contact.puresoul@proton.me</a>
+        </div>
+
+        <footer class="protocol-footer">
+            <p style="opacity: 0.5; margin-bottom: 30px; font-size: 0.85rem;">
+                Protokoll on aktiveeritud. Alusta esimesest sammust ja liigu edasi omas tempos.
+            </p>
+            <a href="index.html" class="btn-hub">Tagasi Genesis Hubi</a>
+        </footer>
+    </main>
+
+</body>
+</html>
