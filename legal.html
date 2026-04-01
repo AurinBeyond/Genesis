@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vastutuse välistamine | Aurin OS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --bg: #050505;
+            --text-dim: rgba(255, 255, 255, 0.68);
+            --border-soft: rgba(255, 255, 255, 0.08);
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: white;
+            line-height: 1.9;
+        }
+
+        .legal-wrapper {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 120px 24px;
+        }
+
+        .legal-header {
+            border-bottom: 1px solid var(--border-soft);
+            padding-bottom: 36px;
+            margin-bottom: 56px;
+        }
+
+        .legal-title {
+            font-weight: 800;
+            font-size: clamp(1.6rem, 4vw, 2.3rem);
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .status-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            opacity: 0.5;
+            margin-top: 12px;
+            text-transform: uppercase;
+        }
+
+        .legal-content section {
+            margin-bottom: 46px;
+        }
+
+        .legal-content h2 {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0 0 16px;
+        }
+
+        .legal-content p {
+            color: var(--text-dim);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .important-note {
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 2px solid var(--gold);
+            padding: 24px;
+            margin: 28px 0 0;
+        }
+
+        .important-note p {
+            color: white;
+            margin: 0;
+        }
+
+        .contact-box {
+            margin-top: 10px;
+            padding: 22px 24px;
+            background: var(--glass);
+            border: 1px solid var(--border-soft);
+        }
+
+        .contact-box strong { color: white; }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 0.7;
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .legal-wrapper { padding: 88px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="legal-wrapper">
+        <header class="legal-header">
+            <h1 class="legal-title">Vastutuse välistamine</h1>
+            <div class="status-tag">Architecture Node 07 // v10.1 Operational</div>
+        </header>
+
+        <main class="legal-content">
+
+            <section>
+                <h2>1. Mittemeditsiiniline olemus</h2>
+                <p>
+                    Aurin OS, Genesis Audit ja seotud materjalid on hariduslikud ning enesevaatlusele suunatud digitaalsed tööriistad. Need ei kujuta endast meditsiinilist nõustamist, psühhoteraapiat ega muud litsentseeritud tervishoiuteenust. Sisu ei ole mõeldud diagnoosimiseks, raviks ega professionaalse meditsiinilise või psühholoogilise abi asendamiseks.
+                </p>
+            </section>
+
+            <section>
+                <h2>2. Isiklik vastutus</h2>
+                <p>
+                    Süsteemi kasutamine toimub kasutaja isiklikul vastutusel. Aurin OS pakub raamistikku mustrite ja otsustusloogika vaatlemiseks, kuid ei anna garantiid konkreetsete tulemuste või elumuutuste osas. Tulemused sõltuvad kasutaja individuaalsest panusest, tõlgendusest ja järjepidevusest.
+                </p>
+            </section>
+
+            <section>
+                <h2>3. Digitaalne sisu ja taganemisõigus</h2>
+                <p>
+                    Genesis Audit on digitaalne sisu. Vastavalt Euroopa Parlamendi ja Nõukogu direktiivile 2011/83/EL kaotab tarbija õiguse lepingust taganeda, kui digitaalse sisu edastamine on alanud tema eelneval selgesõnalisel nõusolekul ning kinnitusel, et ta mõistab taganemisõiguse kaotust.
+                </p>
+                <div class="important-note">
+                    <p>
+                        Pärast digitaalse sisu kättesaadavaks tegemist tagasimakseid üldjuhul ei pakuta, välja arvatud juhtudel, kus kohaldatav seadus nõuab teisiti.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2>4. Intellektuaalne omand</h2>
+                <p>
+                    Kogu Aurin OS süsteemiga seotud sisu, terminoloogia ja raamistikud kuuluvad AURIN kaubamärgi intellektuaalse omandi hulka. Sisu kopeerimine, loata levitamine või edasimüük on keelatud ja karistatav vastavalt kehtivale seadusandlusele.
+                </p>
+            </section>
+
+            <section>
+                <h2>5. Teenusepakkuja</h2>
+                <div class="contact-box">
+                    <p style="margin-bottom: 5px;">
+                        <strong>Haldaja:</strong> AURIN / Pure Soul Life
+                    </p>
+                    <p style="font-size: 0.9rem; margin-bottom: 5px; opacity: 0.8;">
+                        <strong>Staatus:</strong> Iseseisev teenusepakkuja / süsteemiarhitekt
+                    </p>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">
+                        <strong>Kontakt:</strong> <a href="mailto:contact.puresoul@proton.me" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(212, 175, 55, 0.2);">contact.puresoul@proton.me</a>
+                    </p>
+                </div>
+                <p style="opacity: 0.5; font-size: 0.8rem; margin-top: 15px; font-style: italic;">
+                    Kõik teenused ja digitaalsed raamistikud pakutakse iseseisva teenusena ning ei sisalda garantiid konkreetsele tulemusele.
+                </p>
+            </section>
+
+            <a href="offer.html" class="back-link">← Tagasi pakkumise juurde</a>
+        </main>
+    </div>
+
+</body>
+</html>
