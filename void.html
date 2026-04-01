@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOID // AURIN OS</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: rgba(255, 255, 255, 0.9);
+            --accent-color: #d4af37;
+            --dim-text: rgba(255, 255, 255, 0.15);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        #interface {
+            max-width: 560px; /* Optimeeritud loetavuse laius */
+            width: 90%;
+            text-align: center;
+            z-index: 10;
+            margin: 0 auto;
+        }
+
+        .status-bar {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--dim-text);
+            text-transform: uppercase;
+        }
+
+        #void-output {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            letter-spacing: 1px;
+            min-height: 120px;
+            transition: opacity 0.8s ease-in-out;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timer-display {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--dim-text);
+        }
+
+        #init-trigger {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            padding: 18px 36px;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        #init-trigger:focus-visible {
+            outline: 1px solid var(--accent-color);
+            outline-offset: 4px;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        #init-trigger:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        #exit-vector {
+            display: none;
+            opacity: 0;
+            text-decoration: none;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 12px 24px;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: fadeIn 3s forwards;
+        }
+
+        #exit-vector:focus-visible {
+            background: rgba(212, 175, 55, 0.1);
+            outline: 1px solid var(--accent-color);
+            outline-offset: 4px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="status-bar">Status: Interface Active // System: Void</div>
+
+    <div id="interface">
+        <button id="init-trigger" onclick="startVoid()">Aktiveeri vaikus</button>
+        <div id="void-output" aria-live="polite"></div>
+        <a href="core.html" id="exit-vector">Astu järgmisse ruumi</a>
+    </div>
+
+    <div class="timer-display" id="clock">05:00</div>
+
+    <script>
+        const script = [
+            { time: 0, text: "Status: Connection to external noise... Severed." },
+            { time: 10, text: "Sa ei ole enam see, mida sa täna tegid." },
+            { time: 22, text: "Sa ei ole enam see, mida sa homme planeerid." },
+            { time: 34, text: "Sa oled siin. Punkt." },
+            { time: 48, text: "Pane tähele ruumi enda ümber." },
+            { time: 62, text: "Pane tähele õhku enda kopsudes." },
+            { time: 76, text: "Ära muuda seda. Lihtsalt märka." },
+            { time: 94, text: "Sinu mõtted on andmevood." },
+            { time: 108, text: "Sa ei pea neid uskuma." },
+            { time: 122, text: "Sa ei pea neid järgima." },
+            { time: 140, text: "Kui tõuseb rahutus — märka seda." },
+            { time: 156, text: "See on vastupanu." },
+            { time: 172, text: "Vastupanu tähendab, et sa oled piiril." },
+            { time: 190, text: "Jää piirile. Ära liigu." },
+            { time: 210, text: "Status: Observer stable." },
+            { time: 230, text: "Sa ei pea saama kellekski teiseks." },
+            { time: 248, text: "Sa pead lihtsalt lõpetama olemast see, kes sa ei ole." },
+            { time: 268, text: "See vaikne ruum on sinu baasseadistus." },
+            { time: 286, text: "System: Stabilized." },
+            { time: 300, text: "Reset complete." }
+        ];
+
+        let seconds = 0;
+        let timer = null;
+        let isStarted = false;
+
+        const output = document.
