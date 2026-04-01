@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIGMA // AURIN OS</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: rgba(255, 255, 255, 0.9);
+            --accent-color: #d4af37;
+            --dim-text: rgba(255, 255, 255, 0.15);
+            --border-soft: rgba(255, 255, 255, 0.08);
+            --panel-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        * { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .status-bar {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--dim-text);
+            text-transform: uppercase;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 140px auto;
+            padding: 0 25px 100px;
+            animation: fadeIn 2.5s ease;
+        }
+
+        .layer-label {
+            font-family: monospace;
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 50px;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        .content-section {
+            margin-bottom: 80px;
+            opacity: 0.85;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            margin-bottom: 28px;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .highlight-block {
+            border-left: 1px solid var(--accent-color);
+            padding: 10px 0 10px 30px;
+            margin: 40px 0;
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.03) 0%, transparent 100%);
+        }
+
+        .highlight-block h2 {
+            font-size: 1.2rem;
+            margin: 0 0 15px;
+            color: var(--accent-color);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .quote {
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: 300;
+            margin: 60px 0;
+            line-height: 1.5;
+        }
+
+        .practice-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-soft);
+            padding: 40px;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .practice-card::before {
+            content: "OPERATIONAL PROTOCOL";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--bg-color);
+            padding: 0 10px;
+            font-family: monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+        }
+
+        .nav-footer {
+            margin-top: 120px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-soft);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dim-text);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            outline: none;
+        }
+
+        .nav-link:hover, 
+        .nav-link:focus-visible {
+            color: var(--accent-color);
+            outline: 1px solid var(--accent-color);
+            outline-offset: 4px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive Fixes */
+        @media (max-width: 600px) {
+            .container { margin-top: 100px; }
+            h1 { font-size: 1.8rem; }
+            .status-bar {
+                top: 15px;
+                left: 15px;
+                font-size: 10px;
+                letter-spacing: 1.5px;
+            }
+            .practice-card {
+                padding: 28px 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="status-bar">Status: Layer 02 Active // Sigma Core</div>
+
+    <main class="container">
+        <span class="layer-label">System Continuity</span>
+        <h1>Sa ei ole siin, et koguda rohkem.<br>Sa oled siin, et näha täpsemalt.</h1>
+
+        <div class="content-section">
+            <p>Enamus sinu päevast on automatiseeritud reaktsioon. Süsteem kordab tuttavat, sest tuttav on odavam kui teadlikkus. See on efektiisku, aga see ei ole vabadus.</p>
+            
+            <div class="highlight-block">
+                <h2>Müra anatoomia</h2>
+                <p>Müra ei ole ainult välised stiimulid. Müra on korduv mõttemuster, mis filtreerib reaalsust läbi eelarvamuste. Kui süsteem on müras, ei näe sa võimalusi, vaid ainult piiranguid.</p>
+            </div>
+
+            <p>Vaikus, mille sa äsja läbisid, ei olnud puhkus. See oli süsteemi katkestus. Hetk, kus sa ei olnud oma harjumuste ja algoritmide summa.</p>
+        </div>
+
+        <div class="quote">
+            "Sinu tähelepanu on ainus valuuta, millel on reaalne väärtus. Kõik muu on tuletis."
+        </div>
+
+        <div class="content-section">
+            <p>Nüüd on sul valik. Sa võid lasta müral end uuesti sisse tõmmata ja naasta automaatikasse. See on turvaline, ennustatav ja hääbuv.</p>
+            <p>Või sa võid hoida seda distantsi. Märka seda väikest vahet impulsi ja reaktsiooni vahel. Seal asub sinu tegelik suutlikkus süsteemi juhtida.</p>
+        </div>
+
+        <section class="practice-card">
+            <p style="margin: 0; font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7;">
+                <strong>Mikro-stopp:</strong> Järgmise 4 tunni jooksul, enne kui sa avad uue seadme või rakenduse, peatu täpselt 3 sekundiks. Ära keela endale tegevust. Lihtsalt fikseeri impulss enne, kui sellele allud.
+            </p>
+        </section>
+
+        <footer class="nav-footer">
+            <a href="core.html" class="nav-link" aria-label="Tagasi keskusesse">← Keskus</a>
+            <a href="protocol.html" class="nav-link" aria-label="Jätka protokolli lehele">Protokoll →</a>
+        </footer>
+    </main>
+
+</body>
+</html>
