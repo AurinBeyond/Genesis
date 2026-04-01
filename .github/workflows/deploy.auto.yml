@@ -1,3 +1,52 @@
 git add .
 git commit -m "ci: activate ARKANA-OS pipeline v1.4 and lock architecture node 21" -m "Architecture Node 20 & 21: Genesis Phase Complete. Automated reporting enabled. System is now autonomous."
 git push origin main
+name: ARKANA-OS CI/CD
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  validate-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Strict file audit
+        run: |
+          # Kontrollime, kas kõik 6 faili ja CSS on olemas
+          for file in index.html void.html core.html delta-insight.html sigma-core.html sigma-protocol.html assets/css/style.css; do
+            if [ ! -f "$file" ]; then
+              echo "VIGA: Fail $file on puudu!"
+              exit 1
+            fi
+          done
+          echo "Kõik failid on olemas."
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
