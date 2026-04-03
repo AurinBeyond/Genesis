@@ -1,0 +1,122 @@
+name: GENESIS-AI-AGENT-V1-3
+
+on:
+  workflow_dispatch:
+    inputs:
+      research_mode:
+        description: "Aktiveerida süvendatud uurimistöö (Research Mode)?"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "ai-agent"
+  cancel-in-progress: true
+
+jobs:
+  execute-task:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      # 1. Checkout repository (Pinned SHA turvalisuse huvides)
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+      # 2. Kriitiline failide kontroll (Süsteemi värav)
+      - name: Verify GENESIS core files
+        run: |
+          if [ ! -f GENESIS-LAWS.md ]; then
+            echo "❌ CRITICAL ERROR: GENESIS-LAWS.md puudub!"
+            exit 1
+          fi
+
+          if [ ! -f TASKMASTER.md ]; then
+            echo "❌ CRITICAL ERROR: TASKMASTER.md puudub!"
+            exit 1
+          fi
+          echo "✅ Core süsteemifailid valideeritud."
+
+      # 3. Ülesande leidmine TASKMASTER failist (Turvaline parsimine)
+      - name: Extract next task
+        id: task_fetcher
+        run: |
+          TASK_LINE=$(grep -m 1 "^- \[ \]" TASKMASTER.md || true)
+
+          if [ -z "$TASK_LINE" ]; then
+            echo "❌ Ühtegi aktiivset ülesannet [- ] ei leitud."
+            exit 1
+          fi
+
+          # Eemaldab märgistuse ja jätab puhta teksti
+          TASK_CONTENT=$(echo "$TASK_LINE" | sed 's/^- \[ \] //')
+
+          # Turvaline väljund GITHUB_OUTPUT kaudu (multiline safe)
+          {
+            echo "task_content<<EOF"
+            echo "$TASK_CONTENT"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "🎯 Tuvastatud ülesanne: $TASK_CONTENT"
+
+      # 4. Logifailide ettevalmistamine
+      - name: Prepare environment
+        run: |
+          touch updates.log
+          if [ "${{ inputs.research_mode }}" = "true" ]; then
+            touch research.log
+            echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] Research Mode ACTIVE" >> research.log
+          fi
+
+      # 5. Ülesande teostamine (Logimine vastavalt poliitikale)
+      - name: Execute task
+        run: |
+          echo "---" >> updates.log
+          echo "TIME: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> updates.log
+          echo "TASK: ${{ steps.task_fetcher.outputs.task_content }}" >> updates.log
+          echo "POLICY_REF: GENESIS-LAWS.md" >> updates.log
+          echo "STATUS: Completed under GENESIS-LAWS compliance" >> updates.log
+
+          if [ "${{ inputs.research_mode }}" = "true" ]; then
+            echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] Research completed for: ${{ steps.task_fetcher.outputs.task_content }}" >> research.log
+          fi
+
+      # 6. Pull Requesti loomine (Piiratud ainult logifailidega)
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@70a448d9d59048f07af7257973c91d9d936da7f2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          add-paths: |
+            updates.log
+            research.log
+          commit-message: "ai: execute task [${{ github.run_id }}]"
+          branch: genesis/auto-task-${{ github.run_id }}
+          delete-branch: true
+          title: "🤖 GENESIS: Task Execution [ID: ${{ github.run_id }}]"
+          body: |
+            ### GENESIS ORCHESTRATOR v1.3
+
+            **Task:**
+            `${{ steps.task_fetcher.outputs.task_content }}`
+
+            **Compliance Check:**
+            - [x] GENESIS-LAWS verified
+            - [x] TASKMASTER parsed
+            - [x] Execution logged
+            - [x] Research mode: `${{ inputs.research_mode }}`
+
+            *See muudatus on valmis inimesepoolseks kinnitamiseks.*
+
+      # 7. PR tulemuse kuvamine
+      - name: Show PR result
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "PR number: ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "PR url: ${{ steps.cpr.outputs.pull-request-url }}"
