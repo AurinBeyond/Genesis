@@ -1,0 +1,72 @@
+name: GENESIS-AI-AGENT
+
+on:
+  workflow_dispatch:
+    inputs:
+      research_mode:
+        description: "Kas agent loob ka research.log kirje?"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "ai-agent"
+  cancel-in-progress: true
+
+jobs:
+  ai-task:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+      - name: Verify Genesis Laws
+        run: |
+          if [ ! -f GENESIS-LAWS.md ]; then
+            echo "KRIITILINE VIGA: GENESIS-LAWS.md puudub!"
+            exit 1
+          fi
+
+      - name: Extract Task from Taskmaster
+        id: get_task
+        run: |
+          # Leiab esimese märkimata ülesande [ ] TASKMASTER failist
+          TASK=$(grep -m 1 "- \[ \]" TASKMASTER.md | sed 's/- \[ \] //')
+          if [ -z "$TASK" ]; then
+            echo "VIGA: Ühtegi aktiivset ülesannet ei leitud TASKMASTER.md failist!"
+            exit 1
+          fi
+          echo "task=$TASK" >> $GITHUB_OUTPUT
+          echo "Tuvastatud ülesanne: $TASK"
+
+      - name: Create logs
+        run: |
+          touch updates.log
+          if [ "${{ inputs.research_mode }}" = "true" ]; then touch research.log; fi
+
+      - name: Simulated AI brainwork
+        run: |
+          echo "### AI MUUDATUS: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> updates.log
+          echo "Ülesanne (Taskmasterist): ${{ steps.get_task.outputs.task }}" >> updates.log
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@70a448d9d59048f07af7257973c91d9d936da7f2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "ai: [taskmaster] ${{ steps.get_task.outputs.task }}"
+          branch: ai-agent/updates
+          delete-branch: true
+          title: "🤖 AI: ${{ steps.get_task.outputs.task }}"
+          body: |
+            Süsteem tuvastas automaatselt ülesande failist TASKMASTER.md.
+            
+            **Ülesanne:** ${{ steps.get_task.outputs.task }}
+            **Poliitika:** GENESIS-LAWS.md kontrollitud.
