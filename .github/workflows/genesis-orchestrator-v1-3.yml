@@ -9,11 +9,15 @@ on:
         type: boolean
         default: false
 
+# 🚀 TULEVIKUKINDLUS: Sunnime Node.js 24 kasutuse, et kaotada hoiatused
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: read
 
 concurrency:
-  group: "ai-agent"
+  group: ai-agent
   cancel-in-progress: true
 
 jobs:
@@ -24,9 +28,9 @@ jobs:
       pull-requests: write
 
     steps:
-      # 1. Checkout repository (Pinned SHA turvalisuse huvides)
+      # 1. Checkout repository (Kasutame v5 natiivse Node 24 toe jaoks)
       - name: Checkout repository
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        uses: actions/checkout@v5
 
       # 2. Kriitiline failide kontroll (Süsteemi värav)
       - name: Verify GENESIS core files
@@ -35,7 +39,6 @@ jobs:
             echo "❌ CRITICAL ERROR: GENESIS-LAWS.md puudub!"
             exit 1
           fi
-
           if [ ! -f TASKMASTER.md ]; then
             echo "❌ CRITICAL ERROR: TASKMASTER.md puudub!"
             exit 1
@@ -47,30 +50,28 @@ jobs:
         id: task_fetcher
         run: |
           TASK_LINE=$(grep -m 1 "^- \[ \]" TASKMASTER.md || true)
-
           if [ -z "$TASK_LINE" ]; then
-            echo "❌ Ühtegi aktiivset ülesannet [- ] ei leitud."
+            echo "❌ Ühtegi aktiivset ülesannet '- [ ]' ei leitud."
             exit 1
           fi
 
           # Eemaldab märgistuse ja jätab puhta teksti
           TASK_CONTENT=$(echo "$TASK_LINE" | sed 's/^- \[ \] //')
 
-          # Turvaline väljund GITHUB_OUTPUT kaudu (multiline safe)
+          # Turvaline väljund GITHUB_OUTPUT kaudu (multiline safe EOF)
           {
             echo "task_content<<EOF"
             echo "$TASK_CONTENT"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
-
           echo "🎯 Tuvastatud ülesanne: $TASK_CONTENT"
 
-      # 4. Logifailide ettevalmistamine
+      # 4. Logifailide ettevalmistamine (Stabiilne logimine)
       - name: Prepare environment
         run: |
           touch updates.log
+          touch research.log
           if [ "${{ inputs.research_mode }}" = "true" ]; then
-            touch research.log
             echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] Research Mode ACTIVE" >> research.log
           fi
 
@@ -87,32 +88,37 @@ jobs:
             echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] Research completed for: ${{ steps.task_fetcher.outputs.task_content }}" >> research.log
           fi
 
-      # 6. Pull Requesti loomine (Piiratud ainult logifailidega)
+      # 6. Pull Requesti loomine (Kasutame v7 ja scoped paths)
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@70a448d9d59048f07af7257973c91d9d936da7f2
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           add-paths: |
             updates.log
             research.log
-          commit-message: "ai: execute task [${{ github.run_id }}]"
+          commit-message: "ai: execute task [node24-v7-stable]"
           branch: genesis/auto-task-${{ github.run_id }}
           delete-branch: true
-          title: "🤖 GENESIS: Task Execution [ID: ${{ github.run_id }}]"
+          title: "🤖 GENESIS: Task Execution [Node24]"
           body: |
-            ### GENESIS ORCHESTRATOR v1.3
+            ### GENESIS ORCHESTRATOR v1.3.1 (Stable)
 
             **Task:**
             `${{ steps.task_fetcher.outputs.task_content }}`
 
-            **Compliance Check:**
-            - [x] GENESIS-LAWS verified
-            - [x] TASKMASTER parsed
-            - [x] Execution logged
-            - [x] Research mode: `${{ inputs.research_mode }}`
+            **Updates:**
+            - Forced Node.js 24 environment enabled
+            - Actions updated to @v5 (checkout) and @v7 (create-pull-request)
+            - GENESIS-LAWS compliance verified
+            - Multi-log stability ensured (updates.log & research.log)
 
-            *See muudatus on valmis inimesepoolseks kinnitamiseks.*
+      # 7. PR tulemuse kuvamine
+      - name: Show PR result
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "PR number: ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "PR url: ${{ steps.cpr.outputs.pull-request-url }}"
 
       # 7. PR tulemuse kuvamine
       - name: Show PR result
