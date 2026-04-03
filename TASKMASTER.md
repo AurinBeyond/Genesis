@@ -1,8 +1,8 @@
 # 🛡️ GENESIS TASKMASTER v1.7
 
-> STATUS: ACTIVE  
-> MODE: AUTONOMOUS  
-> SYSTEM: GENESIS-AI-AGENT  
+> **STATUS:** ACTIVE  
+> **MODE:** AUTONOMOUS  
+> **SYSTEM:** GENESIS-AI-AGENT  
 
 ---
 
@@ -19,56 +19,51 @@
 
 ## 🧠 EXECUTION RULES
 
-- Agent processes only the **first available task** matching:
-  `- [ ]`
-- Tasks are executed **top-down**
-- Only **one task per run**
-- After execution:
-  - mark task as `- [x]`
-  - write log entry to `updates.log`
+1. **Selection:** Agent processes only the **first available task** matching the `- [ ]` pattern.
+2. **Order:** Tasks are executed strictly **top-down** to maintain logical dependency.
+3. **Concurrency:** Only **one task per run** is processed to ensure system stability.
+4. **Finalization:** After execution, the agent must:
+   - Mark the task as `- [x]`.
+   - Write a corresponding log entry to `updates.log`.
 
 ---
 
 ## ⚙️ PRIORITY SYSTEM
 
-- HIGH → critical system tasks  
-- MEDIUM → structural improvements  
-- LOW → optional / future  
+- **HIGH** → Critical system infrastructure and security tasks.  
+- **MEDIUM** → Structural improvements and feature enhancements.  
+- **LOW** → Optional updates, documentation, or future ideas.  
 
 ---
 
 ## 🔁 FAILURE HANDLING
 
-If task execution fails:
-- Do NOT stop workflow  
-- Log failure to `updates.log`  
-- Leave task as `- [ ]`  
-- Retry on next run  
+If a task execution encounters an error:
+- **Resilience:** Do NOT stop the entire workflow.  
+- **Reporting:** Log the specific failure reason to `updates.log`.  
+- **Persistence:** Leave the task as `- [ ]` so it can be retried on the next run.  
 
 ---
 
-## 📊 LOGGING
+## 📊 LOGGING FORMAT
 
-All actions are recorded in: `updates.log`
-
-Format:
-- [YYYY-MM-DD HH:MM] TASK ID: XXX → STATUS: COMPLETED  
-- [YYYY-MM-DD HH:MM] TASK ID: XXX → STATUS: FAILED  
+All actions are recorded in the central `updates.log` file using the following standard:
+- `[YYYY-MM-DD HH:MM] TASK ID: XXX → STATUS: COMPLETED`  
+- `[YYYY-MM-DD HH:MM] TASK ID: XXX → STATUS: FAILED (Reason)`  
 
 ---
 
 ## 📦 COMPLETED TASKS
 
-> Completed tasks can be moved here manually if needed.
-> System remains stable even without automatic archiving.
+> *Completed tasks can be moved here manually or by the upcoming v1.8 archiving agent.*
 
 ---
 
 ## 🧩 SYSTEM NOTES
 
-- This file is the **single source of truth** for all GENESIS tasks  
-- Designed for **scaling into multi-agent system** - Fully compatible with current GitHub Actions workflow  
-- No additional configuration required  
+- This file is the **single source of truth** for all GENESIS operational tasks.  
+- Designed for **scaling into a multi-agent system**.
+- Fully compatible with the current GitHub Actions AI agent workflow.
 
 ---
 **GENESIS Protocol: Standing by for autonomous execution.**
