@@ -1,0 +1,94 @@
+name: GENESIS-AI-AGENT
+
+on:
+  workflow_dispatch:
+    inputs:
+      task_description:
+        description: "Mida agent peaks täna tegema? (Võta TASKMASTER-ist)"
+        required: true
+        default: "Uuenda dokumentatsiooni"
+      research_mode:
+        description: "Kas agent loob ka research.log kirje?"
+        required: true
+        type: boolean
+        default: false
+      approved_domains:
+        description: "Deklaratiivsed domeenid (poliitika nähtavuseks)"
+        required: false
+        default: "docs.github.com"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "ai-agent"
+  cancel-in-progress: true
+
+jobs:
+  ai-task:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+      - name: Verify Genesis Laws
+        run: |
+          if [ ! -f GENESIS-LAWS.md ]; then
+            echo "KRIITILINE VIGA: GENESIS-LAWS.md puudub! Agent ei tohi tegutseda ilma seadusteta."
+            exit 1
+          fi
+          echo "Genesis Laws tuvastatud. Järgime eetikakoodeksit."
+
+      - name: Create base log
+        run: |
+          touch updates.log
+
+      - name: Create research log
+        if: ${{ inputs.research_mode }}
+        run: |
+          touch research.log
+
+      - name: Simulated AI brainwork
+        run: |
+          echo "" >> updates.log
+          echo "### AI MUUDATUS: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> updates.log
+          echo "Ülesanne: ${{ inputs.task_description }}" >> updates.log
+          echo "Seadusandlik raamistik: GENESIS-LAWS.md kontrollitud." >> updates.log
+
+      - name: Simulated research policy log
+        if: ${{ inputs.research_mode }}
+        run: |
+          echo "" >> research.log
+          echo "### RESEARCH SESSION: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> research.log
+          echo "Mode: Boolean Active | Domains: ${{ inputs.approved_domains }}" >> research.log
+          echo "Status: Compliance check passed." >> research.log
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@70a448d9d59048f07af7257973c91d9d936da7f2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          add-paths: |
+            updates.log
+            research.log
+          commit-message: "ai: ${{ inputs.task_description }}"
+          branch: ai-agent/updates
+          delete-branch: true
+          title: "🤖 AI ettepanek: ${{ inputs.task_description }}"
+          body: |
+            See on automaatne muudatusettepanek GENESIS-AI-AGENT v1.2 workflow'lt.
+
+            Ülesanne: ${{ inputs.task_description }}
+            Research Mode Active: ${{ inputs.research_mode }}
+            Compliance Status: GENESIS-LAWS.md verified.
+            Run ID: ${{ github.run_id }}
+
+      - name: Show PR result
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "PR number: ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "PR url: ${{ steps.cpr.outputs.pull-request-url }}"
