@@ -45,6 +45,3 @@
 ---
 
 **GENESIS Protocol: Standing by for autonomous execution.**
-
----
-**GENESIS Protocol: Standing by for autonomous execution.**
