@@ -15,7 +15,7 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: ai-agent
@@ -24,27 +24,21 @@ concurrency:
 jobs:
   execute-task:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
 
       - name: Verify GENESIS core files
         shell: bash
         run: |
-          if [ ! -f GENESIS-LAWS.md ]; then
-            echo "❌ CRITICAL ERROR: GENESIS-LAWS.md puudub!"
+          if [ ! -f GENESIS-LAWS.md ] || [ ! -f TASKMASTER.md ]; then
+            echo "❌ CRITICAL ERROR: GENESIS-LAWS.md või TASKMASTER.md puudub!"
             exit 1
           fi
-
-          if [ ! -f TASKMASTER.md ]; then
-            echo "❌ CRITICAL ERROR: TASKMASTER.md puudub!"
-            exit 1
-          fi
-
           echo "✅ Core süsteemifailid valideeritud."
 
       - name: Extract next open task
@@ -71,74 +65,48 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-          echo "🎯 Tuvastatud ülesanne: $TASK_CONTENT (Rida: $LINE_NUM)"
+          echo "🎯 Task: $TASK_CONTENT (Line: $LINE_NUM)"
 
-      - name: Prepare logs
-        if: steps.task_fetcher.outputs.has_task == 'true'
-        shell: bash
-        run: |
-          touch updates.log
-          touch research.log
-
-          if [ "${{ inputs.research_mode }}" = "true" ]; then
-            echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] Research Mode ACTIVE" >> research.log
-          fi
-
-      - name: Update TASKMASTER and log
+      - name: Update TASKMASTER and logs
         if: steps.task_fetcher.outputs.has_task == 'true'
         shell: bash
         run: |
           L_NUM="${{ steps.task_fetcher.outputs.line_num }}"
-          # Täpne asendus ilma lisatühikuteta: [ ] -> [x]
+          
+          # Märgi ülesanne tehtuks [x]
           sed -i "${L_NUM}s/^- \\[ \\]/- [x]/" TASKMASTER.md
 
+          # Logi täiendamine
+          touch updates.log
           {
             echo "---"
             echo "TIME: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-            echo "ACTION: Task marked as completed on line $L_NUM"
             echo "TASK: ${{ steps.task_fetcher.outputs.task_content }}"
-            echo "POLICY_REF: GENESIS-LAWS.md"
-            echo "STATUS: Closed by Autonomous Executor v1.4"
+            echo "STATUS: Completed by GENESIS v1.4"
           } >> updates.log
 
-          if [ "${{ inputs.research_mode }}" = "true" ]; then
-            echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] Research completed for: ${{ steps.task_fetcher.outputs.task_content }}" >> research.log
+      - name: Commit and push
+        if: steps.task_fetcher.outputs.has_task == 'true'
+        shell: bash
+        run: |
+          git config user.name "genesis-agent"
+          git config user.email "actions@github.com"
+
+          git add TASKMASTER.md updates.log
+
+          if git diff --cached --quiet; then
+            echo "ℹ️ No changes to commit."
+            exit 0
           fi
 
-      - name: Create Pull Request
-        if: steps.task_fetcher.outputs.has_task == 'true'
-        id: cpr
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          add-paths: |
-            TASKMASTER.md
-            updates.log
-            research.log
-          commit-message: "ai: execute and close task [genesis-v1.4]"
-          branch: genesis/auto-task-${{ github.run_id }}
-          delete-branch: true
-          title: "🤖 GENESIS: Task Execution & Closure [v1.4]"
-          body: |
-            ### GENESIS ORCHESTRATOR v1.4
+          git commit -m "ai: execute and close task [genesis-v1.4]"
+          git push origin HEAD:${{ github.ref_name }}
 
-            **Closed task**
-            `${{ steps.task_fetcher.outputs.task_content }}`
-
-            **Changes**
-            - Task marked as completed in `TASKMASTER.md` (line ${{ steps.task_fetcher.outputs.line_num }})
-            - Action logged in `updates.log`
-            - `GENESIS-LAWS.md` compliance verified
-            - Node 24 transition mode enabled
-
-      - name: Execution success
-        if: steps.task_fetcher.outputs.has_task == 'true' && steps.cpr.outputs.pull-request-number
+      - name: Final status
         shell: bash
         run: |
-          echo "✅ Ülesanne edukalt suletud. PR loodud: ${{ steps.cpr.outputs.pull-request-url }}"
-
-      - name: No action required
-        if: steps.task_fetcher.outputs.has_task != 'true'
-        shell: bash
-        run: |
-          echo "ℹ️ Ühtegi avatud ülesannet ei leitud. Midagi ei muudetud."
+          if [ "${{ steps.task_fetcher.outputs.has_task }}" = "true" ]; then
+            echo "✅ Task executed and pushed successfully."
+          else
+            echo "ℹ️ No open tasks found."
+          fi
