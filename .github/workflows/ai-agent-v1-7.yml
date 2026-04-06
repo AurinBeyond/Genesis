@@ -4,156 +4,131 @@ on:
   workflow_dispatch:
     inputs:
       research_mode:
-        description: "Aktiveerida süvendatud uurimistöö?"
+        description: "Enable research logging"
         required: true
         type: boolean
         default: false
-  schedule:
-    - cron: "17 * * * *"
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: ai-agent-${{ github.ref_name }}
+  group: ai-agent
   cancel-in-progress: true
 
 jobs:
-  execute-task:
+  orchestrate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
-      - name: 📥 Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v5
-        with:
-          ref: ${{ github.ref_name }}
-          fetch-depth: 0
 
-      - name: 🛡️ Verify GENESIS core files
+      - name: Validate system integrity
         shell: bash
         run: |
-          set -euo pipefail
-          [[ -f GENESIS-LAWS.md && -f TASKMASTER.md ]] || {
-            echo "❌ CRITICAL ERROR: GENESIS-LAWS.md or TASKMASTER.md is missing."
-            exit 1
-          }
-
-      - name: 🔍 Extract next open task (Scope: ACTIVE TASKS)
-        id: task_fetcher
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          # Dünaamiline sektsiooni tuvastus (toetab emojisid ja sümboleid)
-          START=$(grep -nE "^## .*ACTIVE TASKS" TASKMASTER.md | cut -d: -f1 | head -n1 || true)
-
-          if [[ -z "${START:-}" ]]; then
-            echo "❌ ERROR: ACTIVE TASKS section not found."
+          if [ ! -f GENESIS-LAWS.md ]; then
+            echo "❌ GENESIS-LAWS.md missing"
             exit 1
           fi
 
-          # Sektsiooni lõpu tuvastus (järgmine pealkiri)
-          NEXT_H=$(grep -n "^## " TASKMASTER.md | awk -F: -v s="$START" '$1 > s {print $1; exit}' || true)
-
-          if [[ -z "${NEXT_H:-}" ]]; then
-            END=$(wc -l < TASKMASTER.md)
-          else
-            END=$((NEXT_H - 1))
+          if [ ! -f TASKMASTER.md ]; then
+            echo "❌ TASKMASTER.md missing"
+            exit 1
           fi
 
-          # Esimese avatud ülesande [- ] leidmine skoopist
-          REL_LINE=$(sed -n "${START},${END}p" TASKMASTER.md | grep -n -m 1 "^- \[ \]" | cut -d: -f1 || true)
+          echo "✅ Core system validated"
 
-          if [[ -z "${REL_LINE:-}" ]]; then
+      - name: Extract next task
+        id: task
+        shell: bash
+        run: |
+          LINE=$(grep -n -m 1 "^- \[ \]" TASKMASTER.md || true)
+
+          if [ -z "$LINE" ]; then
             echo "has_task=false" >> "$GITHUB_OUTPUT"
+            echo "ℹ️ No tasks found"
             exit 0
           fi
 
-          # Absoluutne reanumber ja sisu eraldamine
-          ABS_L=$((START + REL_LINE - 1))
-          CONTENT=$(sed -n "${ABS_L}p" TASKMASTER.md | sed 's/^- \[ \] //')
+          LINE_NUM=$(echo "$LINE" | cut -d: -f1)
+          CONTENT=$(echo "$LINE" | sed 's/^[0-9]*:- \[ \] //')
 
           echo "has_task=true" >> "$GITHUB_OUTPUT"
-          echo "line_num=$ABS_L" >> "$GITHUB_OUTPUT"
+          echo "line=$LINE_NUM" >> "$GITHUB_OUTPUT"
+
           {
-            echo "task_content<<EOF"
+            echo "content<<EOF"
             echo "$CONTENT"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: ⚙️ Process Task & Prepare Log
-        if: steps.task_fetcher.outputs.has_task == 'true'
-        id: processor
+          echo "🎯 Task found: $CONTENT"
+
+      - name: Stop if no task
+        if: steps.task.outputs.has_task == 'false'
+        shell: bash
+        run: exit 0
+
+      - name: Prepare logs
         shell: bash
         run: |
-          set -euo pipefail
-          # IT-GEENIUS: Siin toimub agendi peamine töötlusloogika
-          echo "status=SUCCESS" >> "$GITHUB_OUTPUT"
+          touch updates.log
+          if [ "${{ inputs.research_mode }}" = "true" ]; then
+            touch research.log
+          fi
 
-      - name: 📝 Finalize State (Success Path)
-        if: steps.task_fetcher.outputs.has_task == 'true' && steps.processor.outputs.status == 'SUCCESS'
+      - name: Execute task
         shell: bash
         run: |
-          set -euo pipefail
+          LINE="${{ steps.task.outputs.line }}"
 
-          # Atomaarne logi
-::contentReference[oaicite:3]{index=3}
- ettevalmistus
-          TMP_LOG=$(mktemp)
+          sed -i "${LINE}s/^- \\[ \\]/- [x]/" TASKMASTER.md
+
           {
             echo "---"
             echo "TIME: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-            echo "TASK: ${{ steps.task_fetcher.outputs.task_content }}"
-            echo "STATUS: Completed by GENESIS v1.7"
-          } > "$TMP_LOG"
-
-          touch updates.log
-          cat "$TMP_LOG" >> updates.log
-          rm -f "$TMP_LOG"
-
-          # Märgi ülesanne tehtuks alles pärast edukat töötlust
-          sed -i "${{ steps.task_fetcher.outputs.line_num }}s/^- \\[ \\]/- [x]/" TASKMASTER.md
-
-      - name: ⚠️ Failure Protocol (Error Path)
-        if: failure() && steps.task_fetcher.outputs.has_task == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-          touch updates.log
-          {
-            echo "---"
-            echo "TIME: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-            echo "TASK: ${{ steps.task_fetcher.outputs.task_content }}"
-            echo "STATUS: FAILED during execution protocol"
+            echo "TASK: ${{ steps.task.outputs.content }}"
+            echo "STATUS: completed (v1.7 orchestrator)"
           } >> updates.log
 
-      - name: 📤 Synchronize Repository
-        if: always() && steps.task_fetcher.outputs.has_task == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "genesis-agent"
-          git config user.email "actions@github.com"
-          git add TASKMASTER.md updates.log
-
-          if git diff --cached --quiet; then
-            echo "ℹ️ No changes to commit."
-            exit 0
+          if [ "${{ inputs.research_mode }}" = "true" ]; then
+            echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] Research: ${{ steps.task.outputs.content }}" >> research.log
           fi
 
-          git commit -m "ai: sync state [genesis-v1.7]"
-          git push origin HEAD:${{ github.ref_name }}
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          add-paths: |
+            TASKMASTER.md
+            updates.log
+            research.log
+          commit-message: "ai: execute task [v1.7]"
+          branch: genesis/agent-${{ github.run_id }}
+          delete-branch: true
+          title: "🤖 GENESIS TASK EXECUTION"
+          body: |
+            ## ORCHESTRATOR v1.7
 
-      - name: 🏁 Final Status Report
-        if: always()
+            **Task executed:**
+            ${{ steps.task.outputs.content }}
+
+            **System:**
+            - GENESIS-LAWS verified
+            - TASKMASTER updated
+            - Logs generated
+
+      - name: Show PR
+        if: steps.cpr.outputs.pull-request-number
         shell: bash
         run: |
-          if [[ "${{ steps.task_fetcher.outputs.has_task }}" == "true" ]]; then
-            echo "✅ Cycle finished for task: ${{ steps.task_fetcher.outputs.task_content }}"
-          else
-            echo "💤 Cycle finished: no open tasks found."
-          fi
+          echo "PR: ${{ steps.cpr.outputs.pull-request-url }}"
