@@ -1,0 +1,51 @@
+# SYSTEM RULES v1.2 (LOCKED)
+
+## CORE SEPARATION
+
+1. CORE ei tooda sisu.
+2. AGENT ei juhi süsteemi.
+3. BRIDGE ei otsusta strateegiat.
+4. TASKMASTER ei kirjuta prompti.
+5. OUTPUT-STANDARD ei muuda sisu mõtet.
+
+## EXECUTION FLOW
+
+6. ORCHESTRATOR määrab ainult järjekorra ja handoff'i.
+7. Iga agent kirjutab ainult oma väljundi.
+8. Järgmine agent tohib kasutada ainult eelmist kinnitatud väljundit.
+
+## SYSTEM INTEGRITY
+
+9. Ükski agent ei tohi muuta teise agendi config.md faili.
+10. Kõik süsteemiülesed muudatused käivad ainult läbi CORE / LAWS / OPERATION tasandi.
+
+## STATE CONTROL
+
+11. STATE on üks ja keskne (single source of truth).
+
+12. Iga väljund saab staatuse:
+- draft (loodud, mitte kinnitatud)
+- approved (kinnitatud kasutamiseks)
+- locked (lukustatud, muutmine keelatud)
+
+12.1 Ainult CORE / OPERATION / ORCHESTRATOR võib muuta staatust "approved" või "locked".
+
+13. Lukustatud (locked) väljundit ei tohi ükski agent muuta.
+
+## INPUT VALIDATION
+
+14. Kui sisend on puudulik → agent ei loo outputit, vaid küsib täpsustust.
+15. Agent ei tohi oletada ega täita lünki.
+
+## PRIORITY & CONFLICT RESOLUTION
+
+16. Konflikti korral kehtib prioriteet:
+CORE → LAWS → OPERATION → ORCHESTRATOR → AGENT
+
+## EXECUTION SAFETY
+
+17. Üks agent = üks ülesanne korraga (no parallel overwrite).
+
+## TRACEABILITY
+
+18. Kõik muudatused peavad olema jälgitavad (log / history).
