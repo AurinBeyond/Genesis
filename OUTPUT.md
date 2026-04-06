@@ -1,0 +1,9 @@
+- Introduced OUTPUT.md as the final execution layer governing all agent output behavior.
+- Defined allowed output types (task, system, report, log) with strict structural and scope requirements.
+- Implemented output validation rules (accuracy, completeness, scope alignment, structure, consistency).
+- Established explicit state and mode alignment for output generation (ACTIVE) and validation (REVIEW).
+- Defined invalid output conditions to prevent incomplete, fabricated, or out-of-scope results.
+- Implemented controlled output processing flow with mandatory validation and enforced stop on failure.
+- Standardized output logging format including state and mode for full traceability.
+- Defined strict review and failure discipline to eliminate false completion states.
+- Enforced system integrity principle: no completion without validated and verified output.
