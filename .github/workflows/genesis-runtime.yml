@@ -16,7 +16,7 @@ on:
         required: true
         default: "main"
       task_scope:
-        description: "Optional task scope marker (e.g. ACTIVE TASKS). Leave empty to scan all TASKMASTER.md"
+        description: "Optional task scope marker (e.g. ACTIVE TASKS). Leave empty to use ACTIVE TASKS section"
         required: false
         default: ""
       log_only:
@@ -37,326 +37,224 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  orchestrate:
-    name: Orchestrate task lifecycle
+  validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
+    permissions:
+      contents: read
+
+    outputs:
+      has_task: ${{ steps.task.outputs.has_task }}
+      task_line: ${{ steps.task.outputs.task_line }}
+      clean_task: ${{ steps.task.outputs.clean_task }}
+      raw_task: ${{ steps.task.outputs.raw_task }}
+      branch_name: ${{ steps.task.outputs.branch_name }}
+      timestamp_utc: ${{ steps.meta.outputs.timestamp_utc }}
+      run_id: ${{ steps.meta.outputs.run_id }}
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.target_branch }}
+          fetch-depth: 0
+
+      - name: Verify core files
+        run: |
+          set -euo pipefail
+          for f in GENESIS-LAWS.md STATE.md MODE.md INPUT.md OUTPUT.md TASK.md AGENT.md AGENTS-CONFIG.md TASKMASTER.md; do
+            [[ -f "$f" ]] || { echo "Missing $f"; exit 1; }
+          done
+
+      - id: meta
+        run: |
+          echo "timestamp_utc=$(date -u +"%Y-%m-%d %H:%M UTC")" >> "$GITHUB_OUTPUT"
+          echo "run_id=${{ github.run_id }}" >> "$GITHUB_OUTPUT"
+
+      - id: task
+        run: |
+          set -euo pipefail
+
+          task_file="TASKMASTER.md"
+          scope="${{ inputs.task_scope }}"
+
+          [[ -s "$task_file" ]] || { echo "has_task=false" >> "$GITHUB_OUTPUT"; exit 0; }
+
+          # default scope
+          if [[ -z "$scope" ]]; then
+            scope="ACTIVE TASKS"
+          fi
+
+          start_line="$(
+            awk -v scope="$scope" '
+              index($0, "## ") == 1 && index($0, scope) > 0 { print NR; exit }
+            ' "$task_file"
+          )"
+
+          [[ -n "${start_line:-}" ]] || { echo "has_task=false" >> "$GITHUB_OUTPUT"; exit 0; }
+
+          end_line="$(
+            awk -v start="$start_line" '
+              NR > start && /^## / { print NR - 1; exit }
+              END { print NR }
+            ' "$task_file"
+          )"
+
+          absolute_line="$(
+            awk -v start="$start_line" -v end="$end_line" '
+              NR >= start && NR <= end && /^- \[ \] / { print NR; exit }
+            ' "$task_file"
+          )"
+
+          [[ -n "${absolute_line:-}" ]] || { echo "has_task=false" >> "$GITHUB_OUTPUT"; exit 0; }
+
+          raw_task="$(sed -n "${absolute_line}p" "$task_file")"
+          clean_task="$(printf '%s\n' "$raw_task" | sed 's/^- \[ \] //')"
+
+          slug="$(
+            printf '%s' "$clean_task" |
+            tr '[:upper:]' '[:lower:]' |
+            sed 's/\[[^]]*\]//g' |
+            sed 's/[^a-z0-9]+/-/g' |
+            sed 's/^-//;s/-$//' |
+            cut -c1-48
+          )"
+
+          [[ -n "$slug" ]] || slug="task-$absolute_line"
+
+          branch="genesis-run-${{ github.run_id }}-$slug"
+
+          echo "has_task=true" >> "$GITHUB_OUTPUT"
+          echo "task_line=$absolute_line" >> "$GITHUB_OUTPUT"
+
+          echo "clean_task<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$clean_task" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+          echo "raw_task<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$raw_task" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+          echo "branch_name=$branch" >> "$GITHUB_OUTPUT"
+
+  execute:
+    runs-on: ubuntu-latest
+    needs: validate
+    if: needs.validate.outputs.has_task == 'true'
 
     permissions:
       contents: write
       pull-requests: write
 
     steps:
-      - name: Checkout target branch
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v5
         with:
           ref: ${{ inputs.target_branch }}
           fetch-depth: 0
 
-      - name: Verify core files
-        shell: bash
-        run: |
-          set -euo pipefail
+      - run: mkdir -p logs && touch logs/updates.log
 
-          required_files=(
-            "GENESIS-LAWS.md"
-            "STATE.md"
-            "MODE.md"
-            "INPUT.md"
-            "OUTPUT.md"
-            "TASK.md"
-            "AGENT.md"
-            "AGENTS-CONFIG.md"
-            "TASKMASTER.md"
-          )
-
-          for file in "${required_files[@]}"; do
-            if [[ ! -f "$file" ]]; then
-              echo "Missing required file: $file"
-              exit 1
-            fi
-          done
-
-      - name: Resolve runtime metadata
-        id: meta
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          timestamp_utc="$(date -u +"%Y-%m-%d %H:%M UTC")"
-          short_sha="$(git rev-parse --short HEAD)"
-          run_id="${{ github.run_id }}"
-          mode="${{ inputs.execution_mode }}"
-          target_branch="${{ inputs.target_branch }}"
-          task_scope="${{ inputs.task_scope }}"
-          log_only="${{ inputs.log_only }}"
-
-          echo "timestamp_utc=$timestamp_utc" >> "$GITHUB_OUTPUT"
-          echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
-          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
-          echo "mode=$mode" >> "$GITHUB_OUTPUT"
-          echo "target_branch=$target_branch" >> "$GITHUB_OUTPUT"
-          echo "task_scope=$task_scope" >> "$GITHUB_OUTPUT"
-          echo "log_only=$log_only" >> "$GITHUB_OUTPUT"
-
-      - name: Ensure logs directory and file
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p logs
-          touch logs/updates.log
-
-      - name: Locate next valid task
-        id: task
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          scope="${{ inputs.task_scope }}"
-          task_file="TASKMASTER.md"
-
-          if [[ ! -s "$task_file" ]]; then
-            echo "TASKMASTER.md is empty or missing content."
-            echo "has_task=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          if [[ -n "$scope" ]]; then
-            start_line="$(grep -n -m 1 "^## .*${scope}" "$task_file" | cut -d: -f1 || true)"
-            if [[ -z "$start_line" ]]; then
-              echo "Scope marker not found: $scope"
-              echo "has_task=false" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-
-            next_header_line="$(awk -v start="$start_line" 'NR>start && /^## / {print NR; exit}' "$task_file")"
-            if [[ -z "${next_header_line:-}" ]]; then
-              next_header_line="$(wc -l < "$task_file")"
-            else
-              next_header_line="$((next_header_line - 1))"
-            fi
-
-            task_line="$(sed -n "${start_line},${next_header_line}p" "$task_file" | grep -n -m 1 "^- \[ \]" | cut -d: -f1 || true)"
-            if [[ -z "$task_line" ]]; then
-              echo "No open tasks found inside scope: $scope"
-              echo "has_task=false" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-
-            absolute_line="$((start_line + task_line - 1))"
-          else
-            absolute_line="$(grep -n -m 1 "^- \[ \]" "$task_file" | cut -d: -f1 || true)"
-            if [[ -z "$absolute_line" ]]; then
-              echo "No open tasks found in TASKMASTER.md"
-              echo "has_task=false" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-          fi
-
-          raw_task="$(sed -n "${absolute_line}p" "$task_file")"
-          clean_task="$(printf '%s\n' "$raw_task" | sed 's/^- \[ \] //')"
-          safe_slug="$(printf '%s' "$clean_task" \
-            | tr '[:upper:]' '[:lower:]' \
-            | sed 's/\[[^]]*\]//g' \
-            | sed 's/[^a-z0-9]+/-/g' \
-            | sed 's/^-//; s/-$//' \
-            | cut -c1-48)"
-
-          if [[ -z "$safe_slug" ]]; then
-            safe_slug="task-${absolute_line}"
-          fi
-
-          branch_name="genesis/${safe_slug}-run-${{ github.run_id }}"
-
-          echo "has_task=true" >> "$GITHUB_OUTPUT"
-          echo "task_line=$absolute_line" >> "$GITHUB_OUTPUT"
-          echo "raw_task<<EOF" >> "$GITHUB_OUTPUT"
-          echo "$raw_task" >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
-          echo "clean_task<<EOF" >> "$GITHUB_OUTPUT"
-          echo "$clean_task" >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
-          echo "branch_name=$branch_name" >> "$GITHUB_OUTPUT"
-
-      - name: Log no-task result
-        if: steps.task.outputs.has_task != 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          {
-            echo "----"
-            echo "WORKFLOW: ${{ env.WORKFLOW_NAME }}"
-            echo "STATE: IDLE"
-            echo "MODE: SAFE"
-            echo "TIMESTAMP: ${{ steps.meta.outputs.timestamp_utc }}"
-            echo "RUN_ID: ${{ steps.meta.outputs.run_id }}"
-            echo "RESULT: No open tasks found"
-          } >> logs/updates.log
-
-      - name: Stop when no task exists
-        if: steps.task.outputs.has_task != 'true'
-        shell: bash
-        run: exit 0
-
-      - name: Validate task before execution
-        id: validate
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          task="${{ steps.task.outputs.clean_task }}"
-
-          if [[ -z "$task" ]]; then
-            echo "Task is empty after extraction."
-            exit 1
-          fi
-
-          echo "task_valid=true" >> "$GITHUB_OUTPUT"
-
-      - name: Create runtime branch for PR mode
+      - name: Create branch
         if: inputs.execution_mode == 'pr'
-        shell: bash
         run: |
-          set -euo pipefail
-          git checkout -b "${{ steps.task.outputs.branch_name }}"
+          git fetch origin "${{ inputs.target_branch }}"
+          git checkout -B "${{ needs.validate.outputs.branch_name }}" "origin/${{ inputs.target_branch }}"
 
-      - name: Mark task and write runtime log
-        if: inputs.log_only != true
-        shell: bash
+      - name: Mark task complete
+        if: inputs.log_only == false
+        env:
+          TASK_LINE: ${{ needs.validate.outputs.task_line }}
         run: |
-          set -euo pipefail
-
-          line="${{ steps.task.outputs.task_line }}"
-          task_file="TASKMASTER.md"
-
           python3 - <<'PY'
           from pathlib import Path
           import os
 
-          task_file = Path("TASKMASTER.md")
-          line_no = int(os.environ["TASK_LINE"])
-          lines = task_file.read_text(encoding="utf-8").splitlines()
+          p = Path("TASKMASTER.md")
+          i = int(os.environ["TASK_LINE"]) - 1
+          lines = p.read_text().splitlines()
 
-          idx = line_no - 1
-          current = lines[idx]
+          if not lines[i].startswith("- [ ] "):
+              raise SystemExit("Invalid task state")
 
-          if not current.startswith("- [ ] "):
-              raise SystemExit(f"Expected unchecked task at line {line_no}, got: {current}")
-
-          lines[idx] = current.replace("- [ ] ", "- [x] ", 1)
-          task_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
+          lines[i] = lines[i].replace("- [ ] ", "- [x] ", 1)
+          p.write_text("\n".join(lines) + "\n")
           PY
-        env:
-          TASK_LINE: ${{ steps.task.outputs.task_line }}
 
-      - name: Append structured update log
-        shell: bash
+      - name: Log
         run: |
-          set -euo pipefail
-
-          result_state="COMPLETE"
-          result_mode="SAFE"
+          state="COMPLETE"
+          mode="SAFE"
+          msg="Task completed"
 
           if [[ "${{ inputs.log_only }}" == "true" ]]; then
-            result_state="READY"
-            result_mode="ANALYSIS"
+            state="READY"
+            mode="ANALYSIS"
+            msg="Validated only"
           fi
 
           {
             echo "----"
-            echo "WORKFLOW: ${{ env.WORKFLOW_NAME }}"
-            echo "AGENT_ID: GENESIS-ORCHESTRATOR"
-            echo "STATE: $result_state"
-            echo "MODE: $result_mode"
-            echo "TASK: ${{ steps.task.outputs.clean_task }}"
-            echo "TASK_LINE: ${{ steps.task.outputs.task_line }}"
-            echo "EXECUTION_MODE: ${{ inputs.execution_mode }}"
-            echo "LOG_ONLY: ${{ inputs.log_only }}"
-            echo "BRANCH: $(git branch --show-current)"
-            echo "TARGET_BRANCH: ${{ steps.meta.outputs.target_branch }}"
-            echo "TIMESTAMP: ${{ steps.meta.outputs.timestamp_utc }}"
-            echo "RUN_ID: ${{ steps.meta.outputs.run_id }}"
-            echo "RESULT: Task routed and lifecycle recorded"
+            echo "WORKFLOW: GENESIS-RUNTIME"
+            echo "STATE: $state"
+            echo "MODE: $mode"
+            echo "TASK: ${{ needs.validate.outputs.clean_task }}"
+            echo "TASK_LINE: ${{ needs.validate.outputs.task_line }}"
+            echo "RUN_ID: ${{ needs.validate.outputs.run_id }}"
+            echo "RESULT: $msg"
           } >> logs/updates.log
 
-      - name: Detect changes
+      - name: Commit
         id: changes
-        shell: bash
         run: |
-          set -euo pipefail
-          if git diff --quiet; then
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-          fi
+          git add logs/updates.log
+          [[ "${{ inputs.log_only }}" == "false" ]] && git add TASKMASTER.md || true
 
-      - name: Commit changes
-        if: steps.changes.outputs.has_changes == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
+          if git diff --cached --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add TASKMASTER.md logs/updates.log
-          git commit -m "chore: process task via GENESIS-RUNTIME"
+          git commit -m "chore: GENESIS-RUNTIME execution"
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
 
-      - name: Push direct mode changes
+      - name: Push direct
         if: steps.changes.outputs.has_changes == 'true' && inputs.execution_mode == 'direct'
-        shell: bash
-        run: |
-          set -euo pipefail
-          git push origin "HEAD:${{ inputs.target_branch }}"
+        run: git push origin "HEAD:${{ inputs.target_branch }}"
 
-      - name: Push PR branch
+      - name: Push branch
         if: steps.changes.outputs.has_changes == 'true' && inputs.execution_mode == 'pr'
-        shell: bash
-        run: |
-          set -euo pipefail
-          git push origin "${{ steps.task.outputs.branch_name }}"
+        run: git push --set-upstream origin "${{ needs.validate.outputs.branch_name }}"
 
-      - name: Create pull request
+      - name: PR
         if: steps.changes.outputs.has_changes == 'true' && inputs.execution_mode == 'pr'
         uses: actions/github-script@v8
         with:
           script: |
-            const title = "GENESIS-RUNTIME: process next task";
-            const body = [
-              "This PR was created by GENESIS-RUNTIME.",
-              "",
-              `Task: ${process.env.TASK}`,
-              `Task line: ${process.env.TASK_LINE}`,
-              `Run ID: ${process.env.RUN_ID}`,
-              `Target branch: ${process.env.TARGET_BRANCH}`,
-              "",
-              "Changes:",
-              "- marked the next valid task as completed",
-              "- appended structured runtime log",
-              "",
-              "Execution mode: pr"
-            ].join("\n");
+            const {owner, repo} = context.repo;
+            const head = `${owner}:${process.env.HEAD}`;
+            const base = process.env.BASE;
+
+            const prs = await github.rest.pulls.list({owner, repo, head, base});
+            if (prs.data.length) return;
 
             await github.rest.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title,
-              head: process.env.HEAD_BRANCH,
-              base: process.env.TARGET_BRANCH,
-              body
+              owner, repo,
+              title: "GENESIS-RUNTIME",
+              head: process.env.HEAD,
+              base: process.env.BASE,
+              body: "Automated runtime execution"
             });
         env:
-          TASK: ${{ steps.task.outputs.clean_task }}
-          TASK_LINE: ${{ steps.task.outputs.task_line }}
-          RUN_ID: ${{ steps.meta.outputs.run_id }}
-          TARGET_BRANCH: ${{ steps.meta.outputs.target_branch }}
-          HEAD_BRANCH: ${{ steps.task.outputs.branch_name }}
+          HEAD: ${{ needs.validate.outputs.branch_name }}
+          BASE: ${{ inputs.target_branch }}
 
-      - name: Final summary
-        shell: bash
-        run: |
-          echo "Workflow completed."
-          echo "Task: ${{ steps.task.outputs.clean_task }}"
-          echo "Mode: ${{ inputs.execution_mode }}"
-          echo "Log only: ${{ inputs.log_only }}"
+  no_task:
+    runs-on: ubuntu-latest
+    needs: validate
+    if: needs.validate.outputs.has_task != 'true'
+
+    steps:
+      - run: echo "No tasks"
