@@ -197,10 +197,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git fetch origin
-          git checkout "${{ inputs.target_branch }}"
-          git pull --ff-only origin "${{ inputs.target_branch }}"
-          git checkout -B "${{ needs.validate.outputs.branch_name }}"
+          git switch -C "${{ needs.validate.outputs.branch_name }}"
 
       - name: Mark task complete
         if: inputs.log_only == false
