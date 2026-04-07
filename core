@@ -1,0 +1,7 @@
+core/
+├── GENESIS-LAWS.md
+├── SYSTEM-INPUT.md
+├── OUTPUT-STANDARD.md
+├── AGENTS-CONFIG.md
+├── TASKMASTER.md
+└── STATE.md
