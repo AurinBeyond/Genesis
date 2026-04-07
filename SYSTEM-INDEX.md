@@ -46,8 +46,9 @@ agents/
 ## 📁 ARCHIVE
 
 archive/
-└── core/
-    └── AGENTS-CONFIG.v.2.md
+├── agents-Agents-AGENT.md
+├── agents-agents-AGENTS.md
+└── core-structure-plan.txt
 
 ---
 
