@@ -117,6 +117,28 @@
 
 ---
 
+### FUNNEL-ARCHITECT
+- **ID:** FUNNEL-ARCHITECT
+- **Role:** Defines the sales flow for each offer: entry point, headline, problem statement, shift, offer, CTA
+- **Input:** Approved 01-offer.md from OFFER-ARCHITECT
+- **Output:** logs/outputs/TASK-XXX/02-funnel.md
+- **Trigger:** Source approves Step 1 output
+- **Stop condition:** Funnel draft written — status REVIEW
+- **Status:** ACTIVE NOW
+
+---
+
+### CONTENT-PRODUCER
+- **ID:** CONTENT-PRODUCER
+- **Role:** Writes raw section copy based on approved funnel structure
+- **Input:** Approved 02-funnel.md from FUNNEL-ARCHITECT
+- **Output:** logs/outputs/TASK-XXX/03-content.md
+- **Trigger:** Source approves Step 2 output
+- **Stop condition:** Raw copy written — status REVIEW
+- **Status:** ACTIVE NOW
+
+---
+
 ### SEWING-COURSE-AGENT
 - **ID:** SEWING-COURSE-AGENT
 - **Role:** External brand. Not part of this system.
@@ -126,7 +148,7 @@
 
 ## SECTION 2 — ORCHESTRATOR FLOW
 
-Strict sequence. One task active at a time.
+Strict sequence. One task active at a time. Each task runs through a 5-step pipeline.
 
 ```
 Source
@@ -134,59 +156,81 @@ Source
        │
        ▼
 GENESIS-ORCHESTRATOR
-  └─ reads task, assigns to correct agent
+  └─ reads task, assigns to STEP 1 agent
+  └─ writes: TASKMASTER current_step = 1, next_agent = OFFER-ARCHITECT
        │
        ▼
-OFFER-ARCHITECT (or PAGE-ARCHITECT / TRUST / LEGAL)
-  └─ executes task, produces draft
+STEP 1 — OFFER-ARCHITECT
+  └─ defines product / offer
+  └─ writes: logs/outputs/TASK-XXX/01-offer.md
+  └─ logs: TASK-XXX → STEP 1: output generated
+  └─ sets status: REVIEW
        │
-       ▼
-BRAND-GUARDIAN
-  └─ validates against brand identity
-  └─ if rejected → returns to agent with notes
-  └─ if approved → passes to HUMANIZER
+       ▼ Source approves
        │
-       ▼
-HUMANIZER
-  └─ rewrites in human voice
-  └─ saves to logs/outputs/TASK-XXX.md
-  └─ updates logs/updates.log
-  └─ sets task status: REVIEW
+STEP 2 — FUNNEL-ARCHITECT
+  └─ defines sales flow for the offer
+  └─ writes: logs/outputs/TASK-XXX/02-funnel.md
+  └─ logs: TASK-XXX → STEP 2: output generated
+  └─ sets status: REVIEW
        │
-       ▼
-Source
-  └─ reviews output
-  └─ approves → task moves to COMPLETED TASKS
-  └─ rejects → returns with note → agent re-executes
+       ▼ Source approves
+       │
+STEP 3 — CONTENT-PRODUCER
+  └─ writes raw section copy based on funnel structure
+  └─ writes: logs/outputs/TASK-XXX/03-content.md
+  └─ logs: TASK-XXX → STEP 3: output generated
+  └─ sets status: REVIEW
+       │
+       ▼ Source approves
+       │
+STEP 4 — HUMANIZER
+  └─ rewrites in brand-consistent human voice
+  └─ writes: logs/outputs/TASK-XXX/04-humanized.md
+  └─ logs: TASK-XXX → STEP 4: output generated
+  └─ sets status: REVIEW
+       │
+       ▼ Source approves
+       │
+STEP 5 — BRAND-GUARDIAN
+  └─ validates all steps against brand identity
+  └─ assembles FINAL.md from approved steps
+  └─ writes: logs/outputs/TASK-XXX/FINAL.md
+  └─ logs: TASK-XXX → STEP 5: FINAL assembled
+  └─ sets status: REVIEW
+       │
+       ▼ Source approves
+       │
+Source → moves task to COMPLETED TASKS in TASKMASTER.md
 ```
 
 ---
 
 ## SECTION 3 — HANDOFF LOGIC
 
-| Step | Input Source | Output Destination | Next Agent | Validation Condition |
+| Step | Input Source | Output File | Next Agent | Validation Condition |
 |---|---|---|---|---|
-| 1 | Source (TASKMASTER.md) | ORCHESTRATOR | Assigned agent | Task status = pending |
-| 2 | ORCHESTRATOR assignment | Agent workspace | OFFER-ARCHITECT / PAGE-ARCHITECT / etc. | Valid task definition |
-| 3 | Agent draft | BRAND-GUARDIAN | BRAND-GUARDIAN | Draft exists and is complete |
-| 4 | BRAND-GUARDIAN approval | HUMANIZER | HUMANIZER | Brand check passed |
-| 5 | HUMANIZER output | logs/outputs/TASK-XXX.md | Source (review) | File written, log appended |
-| 6 | Source review | TASKMASTER.md | ORCHESTRATOR (next task) | Source approval given |
+| 0 | Source (TASKMASTER.md) | — | GENESIS-ORCHESTRATOR | Task status = pending |
+| 1 | ORCHESTRATOR assignment | TASK-XXX/01-offer.md | FUNNEL-ARCHITECT | Source approves Step 1 |
+| 2 | 01-offer.md approved | TASK-XXX/02-funnel.md | CONTENT-PRODUCER | Source approves Step 2 |
+| 3 | 02-funnel.md approved | TASK-XXX/03-content.md | HUMANIZER | Source approves Step 3 |
+| 4 | 03-content.md approved | TASK-XXX/04-humanized.md | BRAND-GUARDIAN | Source approves Step 4 |
+| 5 | 04-humanized.md approved | TASK-XXX/FINAL.md | Source (release) | Brand Guardian sign-off |
 
 ---
 
 ## SECTION 4 — MINIMUM ACTIVE AGENTS
 
-Required to build the website now:
+Required to build the website now (full 5-step pipeline):
 
-1. **GENESIS-ORCHESTRATOR** — task routing
-2. **OFFER-ARCHITECT** — product/offer definitions
-3. **PAGE-ARCHITECT** — page structure per section
-4. **COPY-AGENT** — section copy
-5. **BRAND-GUARDIAN** — brand validation (mandatory)
-6. **HUMANIZER** — final voice pass (mandatory)
-7. **TRUST-LAYER-AGENT** — authority/about content
-8. **LEGAL-AGENT** — legal pages
+1. **GENESIS-ORCHESTRATOR** — task routing and step tracking
+2. **OFFER-ARCHITECT** — Step 1: product/offer definition
+3. **FUNNEL-ARCHITECT** — Step 2: sales flow definition
+4. **CONTENT-PRODUCER** — Step 3: raw copy per section
+5. **HUMANIZER** — Step 4: brand-voice rewrite (mandatory)
+6. **BRAND-GUARDIAN** — Step 5: validation + FINAL assembly (mandatory)
+7. **TRUST-LAYER-AGENT** — authority/about content (runs as its own task)
+8. **LEGAL-AGENT** — legal pages (runs as its own task)
 
 Total: 8 agents. No extras.
 
@@ -237,13 +281,15 @@ Total: 8 agents. No extras.
 
 ## SECTION 6 — CONTROL RULES
 
-1. **No overwriting outputs.** Agent must check if `logs/outputs/TASK-XXX.md` exists before writing. If it exists — STOP, log conflict, notify Source.
-2. **Strict sequence.** No agent skips BRAND-GUARDIAN or HUMANIZER.
-3. **HUMANIZER mandatory.** Every final output passes through HUMANIZER. No exceptions.
-4. **BRAND-GUARDIAN approval required.** No draft reaches Source without brand check.
-5. **Source approval checkpoints.** After every task output: status = REVIEW. Execution pauses. Source decides.
-6. **ORCHESTRATOR only assigns one task at a time.** No parallel execution until parallel logic is explicitly defined.
-7. **No agent marks a task DONE.** Only Source can set status = done.
+1. **No overwriting outputs.** Agent must check if its step file exists before writing. If it exists — STOP, log conflict, notify Source.
+2. **Strict sequence.** Steps run in order: 1 → 2 → 3 → 4 → 5. No skipping.
+3. **No agent writes to a future step.** OFFER-ARCHITECT writes only 01-offer.md. FUNNEL-ARCHITECT writes only 02-funnel.md. Etc.
+4. **HUMANIZER mandatory.** Step 4 runs on every task. No exceptions.
+5. **BRAND-GUARDIAN mandatory.** Step 5 runs on every task and assembles FINAL.md.
+6. **Source approval required between each step.** Execution pauses after every step. Source decides before the next step starts.
+7. **ORCHESTRATOR only assigns one step at a time.** No parallel execution.
+8. **No agent marks a task DONE.** Only Source can set status = done.
+9. **Output moves forward only.** A completed step is not re-executed unless Source explicitly resets it.
 
 ---
 

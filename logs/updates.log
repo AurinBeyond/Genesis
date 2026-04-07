@@ -1,9 +1,12 @@
 # GENESIS EXECUTION LOG
 # Format: [YYYY-MM-DD HH:MM] TASK-ID → action (agent)
+# Step format: [YYYY-MM-DD HH:MM] TASK-ID → STEP N: action (agent)
 # Only append. Never edit existing entries.
 # ---
 
 [2026-04-04 17:38] TASK-000 → completed: Setup core repository and documentation (SYSTEM)
 [2026-04-07 19:36] TASK-001 → started: Define first Gumroad product (OFFER-ARCHITECT)
-[2026-04-07 19:36] TASK-001 → output generated: logs/outputs/TASK-001.md (OFFER-ARCHITECT)
-[2026-04-07 19:36] TASK-001 → status: REVIEW — awaiting Source approval
+[2026-04-07 19:36] TASK-001 → STEP 1: output generated: logs/outputs/TASK-001/01-offer.md (OFFER-ARCHITECT)
+[2026-04-07 19:36] TASK-001 → STEP 1: status: REVIEW — awaiting Source approval
+[2026-04-07 20:00] TASK-001 → system upgraded to multi-step pipeline (GENESIS-ORCHESTRATOR)
+[2026-04-07 20:00] TASK-001 → pipeline: 5 steps defined — STEP 2 pending Source approval of STEP 1
