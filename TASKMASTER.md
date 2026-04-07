@@ -1,47 +1,66 @@
-# 🛡️ GENESIS TASKMASTER v1.7
+# GENESIS TASKMASTER v2.0
 
-> **STATUS:** ACTIVE  
-> **MODE:** AUTONOMOUS  
-> **SYSTEM:** GENESIS-AI-AGENT  
-
----
-
-## ⚡ ACTIVE TASKS
-
-- [x] Validate autonomous task closure workflow [ID: 001] [PRIORITY: HIGH] [VERSION: 1.4]
-- [ ] Initialize and verify logging system (updates.log) [ID: 002] [PRIORITY: HIGH] [VERSION: 1.5]
-- [ ] Verify workflow trigger integrity (manual + scheduled) [ID: 003] [PRIORITY: MEDIUM] [VERSION: 1.5]
-- [ ] Implement task prioritization execution logic [ID: 004] [PRIORITY: HIGH] [VERSION: 1.7]
-- [ ] Implement completed task archiving system [ID: 005] [PRIORITY: MEDIUM] [VERSION: 1.7]
-- [ ] Implement failure handling and retry logic [ID: 006] [PRIORITY: HIGH] [VERSION: 1.7]
+> **STATUS:** ACTIVE
+> **CONTROL:** SOURCE (user approval required before DONE)
+> **SYSTEM:** GENESIS-AI-AGENT
 
 ---
 
-## 🧠 EXECUTION RULES
+## ACTIVE TASK
 
-1. **Task Detection:** The agent must detect actionable tasks using the unchecked task pattern: `- [ ]`.
-2. **Execution Order:** Tasks must be processed strictly from top to bottom within the **ACTIVE TASKS** section.
-3. **Single-Run Constraint:** Only one task may be executed per workflow run.
-4. **Completion Protocol:** After successful execution, the agent must:
-   - Change the task state from `- [ ]` to `- [x]`.
-   - Append a corresponding completion entry to `updates.log`.
-5. **Failure Protocol:** If execution fails, the agent must leave the task unchecked and write a failure entry to `updates.log`.
-6. **Scope Restriction:** The agent must only read and modify tasks within the **ACTIVE TASKS** section.
+| Field | Value |
+|---|---|
+| ID | TASK-001 |
+| Agent | OFFER-ARCHITECT |
+| Task | Define the first sellable product for Gumroad |
+| Status | REVIEW |
 
 ---
 
-## ✅ COMPLETED TASKS
+## REVIEW QUEUE
 
-- [x] Setup core repository and basic documentation [ID: 000]
+Tasks completed by agent — awaiting Source approval before moving to DONE.
 
----
-
-## 🧩 SYSTEM NOTES
-
-- This file is the single source of truth for GENESIS operational task tracking.
-- Priority labels are advisory unless explicitly enforced by workflow logic.
-- Fully compatible with the current GitHub Actions AI agent workflow.
+| ID | Agent | Task | Output |
+|---|---|---|---|
+| TASK-001 | OFFER-ARCHITECT | Define first Gumroad product | logs/outputs/TASK-001.md |
 
 ---
 
-**GENESIS Protocol: Standing by for autonomous execution.**
+## COMPLETED TASKS
+
+Tasks approved by Source.
+
+| ID | Agent | Task | Approved |
+|---|---|---|---|
+| TASK-000 | SYSTEM | Setup core repository and documentation | yes |
+
+---
+
+## CONTROL RULES
+
+1. Agent executes task and saves output to `logs/outputs/TASK-XXX.md`.
+2. Agent logs action to `logs/updates.log` with timestamp.
+3. Agent sets task Status to `REVIEW` — never `DONE`.
+4. Agent must not overwrite an existing output file.
+5. Only Source (user) moves task from REVIEW → DONE.
+6. Only Source (user) adds new tasks to ACTIVE TASK.
+
+---
+
+## HOW TO ADD A TASK (Source only)
+
+Replace the ACTIVE TASK table with:
+
+```
+| ID | TASK-XXX |
+| Agent | AGENT-NAME |
+| Task | Description of what to do |
+| Status | pending |
+```
+
+Agent will pick it up on next run.
+
+---
+
+**Source is internal. Control remains with you.**
