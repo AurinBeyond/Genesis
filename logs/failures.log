@@ -1,0 +1,5 @@
+# GENESIS FAILURES LOG
+# Format: [YYYY-MM-DD HH:MM] TASK-ID → failure: description — state: BLOCKED|INVALID|INCOMPLETE (AGENT)
+# Only append. Never edit existing entries.
+# ---
+
