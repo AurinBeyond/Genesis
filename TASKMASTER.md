@@ -12,13 +12,12 @@
 |---|---|
 | ID | TASK-001 |
 | Agent | FUNNEL-ARCHITECT |
-| Task | Define the first sellable product for Gumroad |
 | Status | REVIEW |
-| current_step | 1 |
-| next_agent | FUNNEL-ARCHITECT |
+| current_step | 2 |
+| next_agent | CONTENT-PRODUCER |
 | total_steps | 5 |
 
-**Step 1 output:** `logs/outputs/TASK-001/01-offer.md` — awaiting Source approval before Step 2 starts.
+**Step 2 output:** `logs/outputs/TASK-001/02-funnel.md` — awaiting Source approval before Step 3 starts.
 
 ---
 
@@ -28,7 +27,8 @@ Tasks/steps completed by agent — awaiting Source approval before next step run
 
 | ID | Step | Agent | Output | Status |
 |---|---|---|---|---|
-| TASK-001 | 1 | OFFER-ARCHITECT | logs/outputs/TASK-001/01-offer.md | REVIEW |
+| TASK-001 | 1 | OFFER-ARCHITECT | logs/outputs/TASK-001/01-offer.md | APPROVED |
+| TASK-001 | 2 | FUNNEL-ARCHITECT | logs/outputs/TASK-001/02-funnel.md | REVIEW |
 
 ---
 

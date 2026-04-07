@@ -10,3 +10,7 @@
 [2026-04-07 19:36] TASK-001 → STEP 1: status: REVIEW — awaiting Source approval
 [2026-04-07 20:00] TASK-001 → system upgraded to multi-step pipeline (GENESIS-ORCHESTRATOR)
 [2026-04-07 20:00] TASK-001 → pipeline: 5 steps defined — STEP 2 pending Source approval of STEP 1
+[2026-04-07 20:12] TASK-001 → STEP 1: completed — Source approved (OFFER-ARCHITECT)
+[2026-04-07 20:12] TASK-001 → STEP 2: started (FUNNEL-ARCHITECT)
+[2026-04-07 20:12] TASK-001 → STEP 2: output generated: logs/outputs/TASK-001/02-funnel.md (FUNNEL-ARCHITECT)
+[2026-04-07 20:12] TASK-001 → STEP 2: status: REVIEW — awaiting Source approval
