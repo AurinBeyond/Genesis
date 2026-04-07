@@ -35,7 +35,7 @@ jobs:
       - name: Verify GENESIS core files
         shell: bash
         run: |
-          if [ ! -f GENESIS-LAWS.md ] || [ ! -f TASKMASTER.md ]; then
+          if [ ! -f core/GENESIS-LAWS.md ] || [ ! -f TASKMASTER.md ]; then
             echo "❌ CRITICAL ERROR: GENESIS-LAWS.md või TASKMASTER.md puudub!"
             exit 1
           fi

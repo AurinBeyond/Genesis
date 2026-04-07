@@ -35,7 +35,7 @@ jobs:
       # 2. Kriitiline failide kontroll (Süsteemi värav)
       - name: Verify GENESIS core files
         run: |
-          if [ ! -f GENESIS-LAWS.md ]; then
+          if [ ! -f core/GENESIS-LAWS.md ]; then
             echo "❌ CRITICAL ERROR: GENESIS-LAWS.md puudub!"
             exit 1
           fi
