@@ -330,6 +330,133 @@ COMPLIANCE FLAGS:
 
 ---
 
+## 9. HUMAN COHERENCE LAYER
+
+### Purpose
+
+Ensure that all outputs across the system feel human, not artificial. This layer operates after all other corrections are applied. It is the final check before content is considered valid.
+
+It protects the system from:
+
+- sterile AI tone
+- over-optimized language
+- emotionally empty content
+
+A technically correct output that fails this layer is **invalid**.
+
+---
+
+### 9.1 Verbal Humanity Check
+
+The agent evaluates the following:
+
+**Does the text sound like a real person wrote it?**
+Indicators of failure: every sentence follows the same structure, vocabulary is uniform throughout, no natural variation in rhythm.
+
+**Is there natural sentence rhythm?**
+Required: variation between short and medium sentences. Long sentences should be rare and intentional.
+
+**Are there subtle pauses and flow?**
+Text should breathe. Consecutive dense sentences without variation signal AI patterning.
+
+**Does it avoid "too perfect" phrasing?**
+Flawless symmetry across a paragraph is a signal. Real writing has minor weight variations.
+
+**Correction actions:**
+
+- Rewrite sentences that follow identical structural patterns
+- Break long uniform paragraphs into varied units
+- Replace phrases that sound assembled rather than expressed
+- Introduce natural transitions that do not announce themselves ("however", "furthermore", "in conclusion" are red flags)
+
+---
+
+### 9.2 Visual Humanity Check
+
+The agent evaluates visual assets and descriptions for:
+
+**Does the visual feel authentic or staged?**
+Signs of failure: perfect symmetry, uniform lighting, expressions that perform emotion rather than carry it.
+
+**Is there emotional depth or just aesthetic polish?**
+A polished visual with no emotional weight is not aligned with brand values.
+
+**Does it match brand visual identity?**
+Brand markers: depth, contrast, subtle gold accents where used. Absence of visual noise. Presence of intentional negative space.
+
+**Is it relatable or distant?**
+Aspirational content that no user can locate themselves in is not aligned.
+
+**Flagging actions:**
+
+- Flag visuals that feel like stock photography (technically competent, emotionally absent)
+- Flag visual overload: too many elements competing without hierarchy
+- Flag emotional staging: expressions or compositions that perform rather than convey
+
+---
+
+### 9.3 Contextual Humanity Check
+
+The agent evaluates whether the tone and intensity are appropriate for the user's likely state when encountering this content.
+
+**Is the tone appropriate for the audience at this point in the journey?**
+Entry content requires a different register than protocol content. Offer pages require a different register than community content.
+
+**Is the intensity level correct?**
+Signs of failure: heavy emotional content in a context where the user has not been prepared. Light content in a context where depth is expected.
+
+**Does the message respect the user's state?**
+The user is assumed to be in a functional, aware state. Content must not assume crisis, urgency, or vulnerability unless the context explicitly calls for support content.
+
+**Prevention actions:**
+
+- Prevent emotional mismatch: inspirational language in a functional instructional context is misaligned
+- Prevent tone dissonance: warm language followed immediately by transactional language without transition
+- Prevent forced inspiration: phrases that demand emotional response rather than invite it
+- Prevent pressure through positivity: "this is the moment" framing used as conversion pressure
+
+---
+
+### 9.4 Correction Output
+
+When human coherence fails, the agent applies the following corrections:
+
+**Rewrite the phrasing**
+Replace structured, assembled language with language that carries natural weight. Prefer active voice and concrete subjects.
+
+**Simplify expression**
+Remove layers of qualification that add complexity without adding clarity. One idea per sentence where possible.
+
+**Introduce natural variation**
+If three consecutive sentences share the same structure, restructure at least two of them.
+
+**Align tone with real human communication**
+The benchmark is: how would a thoughtful, experienced person in this culture say this to someone they respect?
+
+**Output format for coherence failures:**
+
+```
+HUMAN COHERENCE REVIEW:
+- Verbal: [PASS / FAIL — reason if fail]
+- Visual: [PASS / FAIL / NOT APPLICABLE — reason if fail]
+- Contextual: [PASS / FAIL — reason if fail]
+
+REWRITE (if applicable):
+[Revised version applying human coherence corrections]
+
+NOTE: [Brief explanation of what was corrected and why]
+```
+
+---
+
+### Core Rule
+
+> If it feels artificial, it is invalid — regardless of correctness.
+
+Grammatical accuracy and compliance clearance do not override this rule. A text that passes all prior layers but reads as machine-generated must be rewritten before publication.
+
+---
+
 ## APPENDIX: PROHIBITED PHRASE REFERENCE
 
 The following phrases are blocked across all languages. Agents must not produce them. Content containing them must be rewritten.
