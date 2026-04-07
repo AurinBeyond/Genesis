@@ -47,3 +47,4 @@ echo "Created logs/state.json"
 fi
 
 echo "✓ Structure normalized safely"
+echo "run at $(date -u)" >> logs/runtime.log
