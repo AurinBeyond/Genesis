@@ -41,8 +41,8 @@ Violation:
 
 All agents must operate in full compliance with:
 
-- STATE.md (state control)
-- MODE.md (behavior control)
+- core/STATE.md (state control)
+- core/MODE.md (behavior control)
 
 No agent may:
 - execute without valid STATE
@@ -57,7 +57,7 @@ Violation:
 
 All agents must:
 
-- validate all input via INPUT.md
+- validate all input via core/INPUT.md
 - validate all output via OUTPUT.md
 
 No agent may:
@@ -95,9 +95,9 @@ PERMISSIONS:
 - initiate workflows
 
 DEPENDENCIES:
-- TASK.md
-- STATE.md
-- MODE.md
+- core/TASK.md
+- core/STATE.md
+- core/MODE.md
 
 ---
 
@@ -123,9 +123,9 @@ PERMISSIONS:
 - write logs
 
 DEPENDENCIES:
-- INPUT.md
+- core/INPUT.md
 - OUTPUT.md
-- TASK.md
+- core/TASK.md
 
 ---
 
@@ -174,9 +174,9 @@ PERMISSIONS:
 - read-only operations only
 
 DEPENDENCIES:
-- STATE.md
-- MODE.md
-- INPUT.md
+- core/STATE.md
+- core/MODE.md
+- core/INPUT.md
 - OUTPUT.md
 
 ---

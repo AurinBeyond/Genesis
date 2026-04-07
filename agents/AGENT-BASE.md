@@ -53,7 +53,7 @@ No agent may operate without valid STATE + MODE pairing.
 
 Agent must strictly follow:
 
-- INPUT.md for all incoming data validation
+- core/INPUT.md for all incoming data validation
 - OUTPUT.md for all produced results
 
 No agent may:
@@ -197,9 +197,9 @@ Error paths:
 ## VI. AGENT PROCESS FLOW
 
 1. Receive task
-2. Validate input (INPUT.md)
+2. Validate input (core/INPUT.md)
 3. If invalid → STOP → STATE: BLOCKED
-4. Validate task (TASK.md)
+4. Validate task (core/TASK.md)
 5. If invalid → STOP → STATE: BLOCKED
 6. Move to READY
 7. Execute task (ACTIVE)

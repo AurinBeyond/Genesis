@@ -4,7 +4,7 @@
 This document defines how GENESIS operates in practice.
 
 It must always comply with:
-→ GENESIS-LAWS.md
+→ core/GENESIS-LAWS.md
 
 ---
 
@@ -43,9 +43,9 @@ Agents must NOT:
 
 When executing a task, agent must follow:
 
-1. Check GENESIS-LAWS.md
-2. Check SYSTEM-INPUT.md
-3. Check OUTPUT-STANDARD.md
+1. Check core/GENESIS-LAWS.md
+2. Check core/SYSTEM-INPUT.md
+3. Check core/OUTPUT-STANDARD.md
 4. Execute task
 5. Validate output
 
@@ -114,8 +114,8 @@ If agents conflict:
 
 1. DETECT conflict
 2. ISOLATE source
-3. CHECK against GENESIS-LAWS.md
-4. CHECK SYSTEM-INPUT.md
+3. CHECK against core/GENESIS-LAWS.md
+4. CHECK core/SYSTEM-INPUT.md
 5. APPLY lowest-risk valid solution
 
 If unresolved:
@@ -127,7 +127,7 @@ If unresolved:
 
 All outputs must:
 
-- follow OUTPUT-STANDARD.md
+- follow core/OUTPUT-STANDARD.md
 - be immediately usable
 - require minimal manual correction
 
