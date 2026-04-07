@@ -10,6 +10,8 @@ Agents MUST follow this structure.
 
 core/
 agents/
+laws/
+logs/
 archive/
 .github/
 scripts/
@@ -19,15 +21,21 @@ scripts/
 ## 📁 CORE
 
 core/
-└── AGENTS-CONFIG.md
+├── GENESIS-LAWS.md
+├── INPUT.md
+├── MODE.md
+├── OUTPUT-STANDARD.md
+├── STATE.md
+├── SYSTEM-INPUT.md
+└── TASK.md
 
 ---
 
 ## 📁 AGENTS
 
 agents/
-├── AGENT.md
-├── AGENTS.md
+├── AGENT-BASE.md
+├── AGENTS-REGISTRY.md
 ├── templates/
 │   └── AGENT-TEMPLATE.md
 ├── course-creator/
