@@ -66,7 +66,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          for f in core/GENESIS-LAWS.md core/STATE.md core/MODE.md core/INPUT.md OUTPUT.md core/TASK.md AGENT.md AGENTS-CONFIG.md TASKMASTER.md; do
+          for f in core/GENESIS-LAWS.md core/STATE.md core/MODE.md core/INPUT.md OUTPUT.md core/TASK.md agents/AGENT-BASE.md AGENTS-CONFIG.md TASKMASTER.md; do
             [[ -f "$f" ]] || { echo "Missing $f"; exit 1; }
           done
 
