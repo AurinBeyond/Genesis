@@ -257,7 +257,48 @@ Clarity over pressure.
 
 ---
 
-## SECTION 8 — CONTENT STRUCTURE LOGIC
+## SECTION 8 — MEDICAL & PSYCHOLOGICAL LANGUAGE BAN
+
+**Strictly NOT allowed:**
+- Medical terminology
+- Psychological diagnosis terms
+- Clinical language
+- Therapy framing
+- Treatment claims
+
+**Forbidden examples:**
+- trauma healing
+- anxiety disorder
+- depression
+- PTSD
+- nervous system regulation
+- therapy process
+- clinical improvement
+
+**Content must NOT:**
+- Diagnose
+- Label conditions
+- Suggest treatment
+- Imply medical or psychological authority
+
+**Safe language replacements:**
+
+Replace clinical language with: patterns / reactions / states / responses / experiences
+
+| ❌ Forbidden | ✅ Permitted |
+|---|---|
+| This helps with anxiety | This may change how you respond in certain situations |
+| You have trauma | You may be repeating certain patterns |
+| This heals emotional pain | This may shift how you experience certain situations |
+
+**Authority limitation:**
+
+Content must never present itself as medical advice, psychological treatment, or a therapy alternative.
+All communication must remain observational, interpretative, non-clinical, and non-diagnostic.
+
+---
+
+## SECTION 9 — CONTENT STRUCTURE LOGIC
 
 Every piece of content, in every format and on every platform, follows one structural sequence.
 
@@ -285,7 +326,7 @@ This structure does not require long-form content. It applies to a single senten
 
 ---
 
-## SECTION 9 — SALES WITHOUT PRESSURE
+## SECTION 10 — SALES WITHOUT PRESSURE
 
 **Invitation over push**
 - A sale is an invitation to a specific person who is already a match.
@@ -315,7 +356,7 @@ The reader who is not a match should not be pushed.
 
 ---
 
-## SECTION 10 — BRAND CONSISTENCY RULE
+## SECTION 11 — BRAND CONSISTENCY RULE
 
 **"No content may contradict this scripture."**
 
@@ -328,8 +369,8 @@ This applies to:
 A contradiction is not only a factual error. A contradiction is:
 - Tone that does not match the standards defined in Section 6
 - Framing that violates the rules in Section 7
-- Sales language that violates Section 9
-- Content that does not follow the structure in Section 8
+- Sales language that violates Section 10
+- Content that does not follow the structure in Section 9
 - Any claim, promise, or pressure tactic excluded by Section 5
 
 When an output conflicts with this scripture, the scripture takes precedence.
@@ -338,7 +379,7 @@ Brand Guardian is the enforcement point. This file is the reference.
 
 ---
 
-## SECTION 11 — CONTENT EXPANSION MODEL
+## SECTION 12 — CONTENT EXPANSION MODEL
 
 **Core idea = skeleton**
 The core idea is the single insight, shift, or recognition at the center of a piece.
@@ -364,7 +405,7 @@ CORE IDEA (Scripture level)
 
 ---
 
-## SECTION 12 — ARCHETYPES
+## SECTION 13 — ARCHETYPES
 
 The system operates through four psychological archetypes. These are not personas or characters.
 They are functional orientations that define how a piece of content is positioned and who it speaks to.
@@ -398,7 +439,7 @@ The archetype does not change the rules. It changes the angle of entry.
 
 ---
 
-## SECTION 13 — FORBIDDEN ZONE
+## SECTION 14 — FORBIDDEN ZONE
 
 The following are prohibited in all outputs produced by this system.
 
@@ -427,4 +468,4 @@ The following are prohibited in all outputs produced by this system.
 
 *This file is the source.*
 *All agents read from it. None write to it.*
-*Version: 1.0 — 2026-04-07*
+*Version: 1.1 — 2026-04-07*
