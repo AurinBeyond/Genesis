@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurin OS | Genesis</title>
+    <meta name="description" content="You are not stuck. You are repeating something you haven't fully seen yet.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --bg: #050505;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-dim: rgba(255, 255, 255, 0.6);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, rgba(212,175,55,0.04), transparent 40%),
+                        linear-gradient(180deg, #070707 0%, #050505 100%);
+            color: white;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 24px;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .entry-wrapper {
+            max-width: 560px;
+            width: 100%;
+        }
+
+        .label {
+            font-size: 0.65rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.55;
+            margin-bottom: 40px;
+            display: block;
+        }
+
+        .headline {
+            font-weight: 800;
+            font-size: clamp(1.9rem, 6vw, 2.8rem);
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .sub-headline {
+            font-size: clamp(1rem, 3vw, 1.15rem);
+            color: var(--text-dim);
+            font-weight: 300;
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: rgba(212,175,55,0.3);
+            margin: 40px 0;
+        }
+
+        .notice {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            opacity: 0.6;
+            margin-bottom: 30px;
+        }
+
+        .body-text {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px;
+        }
+
+        .bullet-list li {
+            padding-left: 22px;
+            position: relative;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            opacity: 0.7;
+        }
+
+        .statement {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.85);
+            font-weight: 400;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .statement strong {
+            color: white;
+            font-weight: 700;
+        }
+
+        .recognition {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            line-height: 1.9;
+        }
+
+        .cta-block {
+            margin-top: 50px;
+        }
+
+        .cta-main {
+            display: inline-block;
+            padding: 18px 48px;
+            background: var(--gold);
+            color: black;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
+        }
+
+        .cta-main:hover { opacity: 0.85; }
+
+        .cta-note {
+            margin-top: 16px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            opacity: 0.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            opacity: 0.4;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            main { padding: 60px 20px; }
+            .cta-main { padding: 16px 36px; }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <div class="entry-wrapper">
+
+            <span class="label">Aurin OS · Genesis</span>
+
+            <h1 class="headline">You are not stuck.</h1>
+            <p class="sub-headline">You are repeating something you haven't fully seen yet.</p>
+
+            <div class="divider"></div>
+
+            <p class="notice">This is not content. This is an entry.</p>
+
+            <div class="divider"></div>
+
+            <p class="body-text">At some point you start noticing:</p>
+
+            <ul class="bullet-list">
+                <li>the same situations</li>
+                <li>the same reactions</li>
+                <li>the same internal loop</li>
+            </ul>
+
+            <p class="body-text">And no matter what you do… it comes back.</p>
+
+            <div class="divider"></div>
+
+            <p class="body-text">This system helps you see:</p>
+
+            <ul class="bullet-list">
+                <li>what is actually running</li>
+                <li>why it keeps repeating</li>
+                <li>where your real choice begins</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <p class="statement">This is the first step.</p>
+            <p class="statement">Not information. <strong>Clarity.</strong></p>
+
+            <div class="divider"></div>
+
+            <p class="recognition">If something in you recognizes this…</p>
+
+            <div class="cta-block">
+                <a href="protocol.html" class="cta-main">Start here</a>
+                <p class="cta-note">Do not skip it.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Aurin OS &nbsp;|&nbsp; <a href="disclaimer.html">Disclaimer</a>
+    </footer>
+
+</body>
+</html>
