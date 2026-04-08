@@ -10,7 +10,7 @@
 ## SINGLE PATH
 
 ```
-ENTRY → PAGE → DECISION → ACTION → PAYMENT → CONFIRMATION → DELIVERY → FOLLOW-UP
+ENTRY → PAGE → DECISION → ACTION → PAYMENT → CONFIRMATION → DELIVERY → FOLLOW-UP → NEXT STEP
 ```
 
 ---
@@ -142,6 +142,18 @@ The user reviews the product listing, price (in NOK), and proceeds to enter paym
 
 ---
 
+## STEP 9 — NEXT STEP
+
+**The user is presented with a clear next action after completing the current product:**
+
+- Inside the delivered content or via the confirmation email, a next-step offer or invitation is referenced
+- This may be: an upsell to a higher-tier product, a 1:1 session booking, or re-engagement with new content
+- The user acts on it or does not — no pressure sequence runs automatically
+
+**See:** `OFFER-ARCHITECTURE.md` for the product ladder and next-step logic.
+
+---
+
 ## SUPPORT CONTACT
 
 At any point in the flow, the user can contact support before or after purchase.
@@ -163,6 +175,7 @@ Pure Soul Life does not initiate unsolicited contact.
 | 6. Confirmation | Email + `success.html` | Receives confirmation | Email sent by Gumroad |
 | 7. Delivery | Email | Opens access link | Content delivered digitally |
 | 8. Follow-up | Email / Support | Contacts support if needed | Support responds manually |
+| 9. Next Step | Delivered content / Email | Reviews next-step offer | Next offer referenced in content |
 
 ---
 
