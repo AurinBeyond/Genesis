@@ -13,7 +13,7 @@
 | Gumroad product block | `/outputs/gumroad/money-program-reset.md` | ✅ Created |
 | PDF content (8 pages) | `/outputs/pdf/money-program-reset.txt` | ✅ Created |
 | Image prompt | `/outputs/images/money-program-reset-prompt.txt` | ✅ Created |
-| Preview page (HTML) | `/public/preview/money-program-reset.html` | ✅ Created |
+| Preview page (HTML) | `/preview/money-program-reset.html` | ✅ Created |
 | Run log | `/outputs/run-log/money-program-reset-log.md` | ✅ Created |
 | updates.log | `/updates.log` | ✅ Appended |
 
@@ -21,13 +21,13 @@
 
 ## Preview Link
 
-https://aurinbeyond.github.io/Genesis/public/preview/money-program-reset.html
+https://aurinbeyond.github.io/Genesis/preview/money-program-reset.html
 
 ---
 
 ## Gumroad Product Link (base)
 
-https://aurinbeyond.gumroad.com/l/ksxqwy
+https://aurinbeyond.gumroad.com
 
 ---
 
@@ -37,7 +37,7 @@ https://aurinbeyond.gumroad.com/l/ksxqwy
 - [x] Preview page exists with complete content
 - [x] Link structure correct (GitHub Pages)
 - [x] No placeholders — all sections filled
-- [x] CTA links to aurinbeyond.gumroad.com/l/ksxqwy
+- [x] CTA links to https://aurinbeyond.gumroad.com (base URL — no slug until product is live)
 - [x] Approval gate in place — not published
 
 ---

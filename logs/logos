@@ -1,7 +1,0 @@
-logs/
-├── updates.log
-├── runtime.log
-├── research.log
-├── state.json
-└── runtime/
-    └── runtime.sh
