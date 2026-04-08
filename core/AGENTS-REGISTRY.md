@@ -24,7 +24,7 @@ All agents must reference this registry for path resolution. Any path not listed
 | `outputs/pdf/` | Deliverable PDF files | Active |
 | `outputs/images/` | Product and brand image assets | Active |
 | `outputs/run-log/` | Execution run logs (verbose) | Active |
-| `logs/` | Structured system logs | Active |
+| `logs/` | Structured system logs: updates.log, failures.log, decisions.log, bridge-sync.log, integrity.log | Active |
 | `core/` | System-level configuration, registry, and constitutional law (`AGENT-BASE.md`) | Active |
 | `assets/` | CSS, JS, and static assets | Active |
 

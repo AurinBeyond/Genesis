@@ -41,6 +41,7 @@ This standard governs the following log files:
 | `logs/failures.log` | Record of errors, blocked operations, and failed validations |
 | `logs/decisions.log` | Record of approved decisions and operational direction changes |
 | `logs/bridge-sync.log` | Record of product bridge state across outputs, preview, and storefront |
+| `logs/integrity.log` | Record of ecological preservation audit status and human-review flags |
 
 No other log files are authorized without a GENESIS-LAWS-aligned decision recorded in `decisions.log`.
 

@@ -1,0 +1,40 @@
+# integrity.log — GENESIS Ecological Preservation Status
+# Format: [YYYY-MM-DDTHH:MM:SSZ] | SOURCE: <source> | ACTION: <action> | TARGET: <target> | STATUS: <status> | DETAIL: <detail>
+# Purpose: Track the preservation, audit status, and human-review flags for all files of ambiguous purpose within the Matrix Aurin ecosystem.
+# See logs/LOGGING-STANDARDS.md for full specification.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Integrity log initialized | TARGET: logs/integrity.log | STATUS: SUCCESS | DETAIL: Ecological preservation tracking file created per TASK: INITIALIZE LOGGING STANDARDS & SECURE SYSTEM ALIGNMENT. All subsequent audits appended below.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: ARKANA-OS | STATUS: REVIEW_REQUIRED | DETAIL: Root file with no extension; content appears to describe an OS or pipeline specification; purpose within Matrix Aurin ecosystem is unclear. PRESERVED. Human review required before any action.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — directory flagged for human review | TARGET: GENESIS/ | STATUS: REVIEW_REQUIRED | DETAIL: Root-level directory GENESIS/ contains GENESIS/agents/AGENT-TEMPLATE.md; purpose distinct from the /agents/ directory; may contain original architecture templates. PRESERVED. Human review required before any action.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — directory flagged for human review | TARGET: Agents/ | STATUS: REVIEW_REQUIRED | DETAIL: Root-level Agents/ directory (capital A) distinct from /agents/ (lowercase); contains no .md files on its own; potential duplicate or legacy scaffold. PRESERVED. Human review required.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: 11.7 Gatekeeper (Consent C-Layer | STATUS: REVIEW_REQUIRED | DETAIL: File with spaces and no extension; name suggests a protocol definition for consent or access; purpose within active system is unclear. PRESERVED. Human review required before any action.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: Clean repository root structure | STATUS: REVIEW_REQUIRED | DETAIL: File with spaces and no extension; name suggests a planning note or specification for root cleanup. PRESERVED. Human review required before any action.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: Extended Description | STATUS: REVIEW_REQUIRED | DETAIL: File with spaces and no extension; may contain product or brand description content. PRESERVED. Human review required before any action.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: SYSTEM RULES v1.2 | STATUS: REVIEW_REQUIRED | DETAIL: File with spaces and no extension; appears to be a prior-version system rules specification; potentially superseded by SYSTEM_RULES.md or GENESIS-LAWS.md. PRESERVED. Human review required before any action.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: PROTOCOL CORE ENGINE 01 | STATUS: REVIEW_REQUIRED | DETAIL: File with spaces and no extension; name suggests a core protocol definition; may contain foundational architecture DNA. PRESERVED. Human review required before any action.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: The Gatekeeper | STATUS: REVIEW_REQUIRED | DETAIL: File with spaces and no extension; name suggests an access-control or consent protocol; may relate to 11.7 Gatekeeper file. PRESERVED. Human review required before any action.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: arkana-core-taskmaster.md | STATUS: REVIEW_REQUIRED | DETAIL: Root file; ARKANA-OS naming convention distinct from GENESIS naming; may be a prior-architecture taskmaster definition. PRESERVED. Human review required.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: arkana-pipeline.yml | STATUS: REVIEW_REQUIRED | DETAIL: Root pipeline YAML file; ARKANA naming suggests a prior CI/CD architecture; may conflict with or duplicate .github/workflows/. PRESERVED. Human review required before any action.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — duplicate file flagged for human review | TARGET: logs/LOGGING-STANDARD.md | STATUS: REVIEW_REQUIRED | DETAIL: Duplicate of logs/LOGGING-STANDARDS.md (without trailing S); canonical file is LOGGING-STANDARDS.md; this file is superseded. PRESERVED. Human must approve deprecation before deletion.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: AGENTS-CONFIG.md | STATUS: REVIEW_REQUIRED | DETAIL: Root file; content superseded by core/AGENTS-REGISTRY.md v1.1; functional DNA merged. PRESERVED. Human approval required before deprecation.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — file flagged for human review | TARGET: AGENTS-CONFIG.v.2.md | STATUS: REVIEW_REQUIRED | DETAIL: Root file; v2 variant of AGENTS-CONFIG.md; content superseded by core/AGENTS-REGISTRY.md v1.1; functional DNA merged. PRESERVED. Human approval required before deprecation.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — files confirmed active | TARGET: agents/Agents/, agents/agents/, agents/course-creator/ | STATUS: REVIEW_REQUIRED | DETAIL: Three parallel agent directories preserved per Ecological Preservation Protocol; content merged into core/AGENTS-REGISTRY.md and core/AGENT-BASE.md; source directories must not be deleted without human approval in decisions.log.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — files confirmed active and protected | TARGET: core/AGENT-BASE.md, core/AGENTS-REGISTRY.md | STATUS: SUCCESS | DETAIL: Both core files are active, locked, and serve as constitutional law and single source of truth respectively. No modifications permitted without human approval.
+
+2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit complete | TARGET: GENESIS repository root | STATUS: SUCCESS | DETAIL: 15 files/directories flagged for human review; 0 deletions performed; all flagged items preserved in place per Ecological Preservation Protocol Amendment.
