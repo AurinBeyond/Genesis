@@ -1,0 +1,3 @@
+# bridge-sync.log — GENESIS System
+# Format: [YYYY-MM-DDTHH:MM:SSZ] | SOURCE: <source> | ACTION: <action> | TARGET: <target> | STATUS: <status> | DETAIL: <detail>
+# See logs/LOGGING-STANDARDS.md Section 6 for full specification.
