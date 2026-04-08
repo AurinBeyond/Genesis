@@ -3,14 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurin OS | Genesis</title>
-    <meta name="description" content="Aurin OS – süsteemne vaatlus ja audit teadliku sisemise selguse loomiseks.">
-    <link rel="stylesheet" href="style.css">
+    <title>Matrix Aurin | Dashboard</title>
+    <meta name="description" content="Matrix Aurin — Autonomous Value Creation. AurinBeyond system dashboard.">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #050505;
+            color: #f0f0f0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            padding: 48px 24px;
+        }
+        header {
+            max-width: 760px;
+            margin: 0 auto 48px;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 16px;
+        }
+        .brand { font-size: 11px; letter-spacing: 4px; color: #888; text-transform: uppercase; }
+        nav a {
+            color: #888;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-left: 24px;
+        }
+        nav a:hover { color: #f0f0f0; }
+        main { max-width: 760px; margin: 0 auto; }
+        .hero { margin-bottom: 56px; }
+        .hero h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 600; line-height: 1.2; margin-bottom: 16px; }
+        .hero p { color: #888; font-size: 15px; line-height: 1.6; max-width: 480px; }
+        section h2 {
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .product-grid { display: grid; gap: 16px; }
+        .product-card {
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            border-radius: 6px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .product-card:hover { border-color: #333; }
+        .product-info h3 { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+        .product-meta { font-size: 12px; color: #555; display: flex; gap: 16px; flex-wrap: wrap; }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .badge-draft { background: #1a1400; color: #b89a00; border: 1px solid #2a2000; }
+        .badge-live { background: #001a0a; color: #00b864; border: 1px solid #003318; }
+        .product-actions { display: flex; gap: 10px; flex-shrink: 0; }
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .btn-preview { background: #111; color: #ccc; border: 1px solid #222; }
+        .btn-preview:hover { border-color: #444; color: #f0f0f0; }
+        .btn-store { background: #f0f0f0; color: #050505; }
+        .btn-store:hover { background: #fff; }
+        footer {
+            max-width: 760px;
+            margin: 64px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid #1a1a1a;
+            font-size: 12px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+        footer a { color: #555; text-decoration: none; }
+        footer a:hover { color: #888; }
+    </style>
 </head>
 <body>
     <header>
+        <span class="brand">Matrix Aurin</span>
         <nav>
-            <a href="index.html" aria-current="page">Avaleht</a>
             <a href="vsl.html">Vaatlus</a>
             <a href="offer.html">Akadeemia</a>
             <a href="disclaimer.html">Vastutus</a>
@@ -18,18 +107,32 @@
     </header>
     <main>
         <section class="hero">
-            <p class="version">AURIN OS v10.1</p>
-            <h1>Sa ei ole kinni. Sa kordad mustrit.</h1>
-            <p class="subtitle">Lõpeta automaatpiloodil elamine. Alusta teekonda nägemiseni läbi süsteemse vaatluse.</p>
-            <a href="vsl.html" class="cta-main">Alusta vaatlust</a>
+            <h1>Sa ei ole kinni.<br>Sa kordad mustrit.</h1>
+            <p>Autonomous Value Creation. Lõpeta automaatpiloodil elamine.</p>
         </section>
-        <section class="products">
+        <section>
             <h2>Tooted</h2>
-            <ul>
-                <li><a href="preview/money-program-reset.html">Money Program Reset — PDF · 99 NOK</a></li>
-            </ul>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>Money Program Reset</h3>
+                        <div class="product-meta">
+                            <span>PDF · 8 lehekülge · 99 NOK</span>
+                            <span class="badge badge-draft">Draft</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a href="preview/money-program-reset.html" class="btn btn-preview">Eelvaade</a>
+                        <a href="https://aurinbeyond.gumroad.com/" class="btn btn-store" target="_blank" rel="noopener">Pood</a>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
-    <footer><p>&copy; 2026 Aurin OS | <a href="disclaimer.html">Vastutuse piirang</a></p></footer>
+    <footer>
+        <span>&copy; 2026 AurinBeyond</span>
+        <span><a href="disclaimer.html">Vastutuse piirang</a></span>
+    </footer>
 </body>
 </html>
+

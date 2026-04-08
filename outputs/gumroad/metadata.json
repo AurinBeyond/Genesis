@@ -1,0 +1,15 @@
+{
+  "product_id": "money-program-reset",
+  "title": "Money Program Reset",
+  "status": "DRAFT",
+  "price_eur": 9,
+  "price_nok": 99,
+  "gumroad_url": "https://aurinbeyond.gumroad.com/",
+  "preview_path": "preview/money-program-reset.html",
+  "gumroad_copy_path": "outputs/gumroad/money-program-reset.md",
+  "pdf_path": null,
+  "created_at": "2026-04-08T07:15:18Z",
+  "last_updated": "2026-04-08T07:23:14Z",
+  "approved_by": null,
+  "notes": "PDF not yet generated. Bridge state: BLOCKED. Advance to APPROVED only after human approval in logs/decisions.log and PDF confirmed in outputs/pdf/."
+}

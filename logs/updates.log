@@ -18,5 +18,8 @@ STATUS: Money Program Reset created. Files saved to outputs/ and public/preview/
 PREVIEW: https://aurinbeyond.github.io/Genesis/public/preview/money-program-reset.html
 ---
 2026-04-08T07:15:18Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Correction applied to prior entry | TARGET: logs/updates.log entry 2026-04-08T02:23:11Z | STATUS: REVIEW_REQUIRED | DETAIL: Path public/preview/money-program-reset.html does not exist; correct path is preview/money-program-reset.html.
-2026-04-08T07:15:19Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Logging backbone synchronized | TARGET: logs/ | STATUS: SUCCESS | DETAIL: All four log files initialized with compliant entries per LOGGING-STANDARDS.md v1.0; path hallucinations corrected.
-2026-04-08T07:15:20Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: File created | TARGET: core/AGENTS-REGISTRY.md | STATUS: SUCCESS | DETAIL: Single source of truth for agent definitions and canonical path mappings written to core/AGENTS-REGISTRY.md.
+2026-04-08T07:23:14Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: File created | TARGET: outputs/gumroad/metadata.json | STATUS: SUCCESS | DETAIL: metadata.json staged for money-program-reset with status DRAFT; pdf_path null until PDF generated; approved_by null pending human review.
+2026-04-08T07:23:14Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: File created | TARGET: core/AGENT-BASE.md | STATUS: SUCCESS | DETAIL: Constitutional law for all GENESIS agents written to core/AGENT-BASE.md; derived from root AGENT.md and existing protocols.
+2026-04-08T07:23:14Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: File updated | TARGET: core/AGENTS-REGISTRY.md | STATUS: SUCCESS | DETAIL: Registry updated to v1.1; COURSE-CREATOR agent merged from agents/course-creator/agent.md and agents/agents/AGENTS.md; HITL protocol section added; legacy directories flagged for human review.
+2026-04-08T07:23:14Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: File updated | TARGET: index.html | STATUS: SUCCESS | DETAIL: Root index.html rebuilt as Matrix Aurin Dashboard with product grid, preview links, and store link using verified base Gumroad URL.
+
