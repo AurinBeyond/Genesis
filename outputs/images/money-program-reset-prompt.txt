@@ -1,0 +1,46 @@
+IMAGE PROMPT — MONEY PROGRAM RESET
+
+---
+
+CONCEPT:
+The moment internal shift begins. Not transformation. Recognition.
+
+---
+
+PROMPT:
+
+Extreme close-up of a human face lit from below by cold blue-white light.
+The light source is a phone or screen — implied, not shown.
+Face is tense. Eyes slightly downcast. One hand visible at the edge of the frame.
+Near-black background. A single tear on the cheek — not dramatic, quiet.
+Then: from the upper right, a thin arc of warm gold light enters the frame.
+Not touching the face yet. Just arriving.
+
+Cinematic. Film grain. Editorial quality.
+Vertical 4:5 portrait orientation.
+Single cold light source from below. Single warm source from upper right.
+No wide shots. No stock feel. No smiling. No transformation montage.
+One moment. The moment before change.
+
+---
+
+TEXT OVERLAY (Canva / Figma):
+
+Line 1: MONEY PROGRAM RESET
+Font: Inter 600, white, 44px, centered
+
+Line 2: Muuda mõtet. Muuda tulemust.
+Font: Inter 300, white, 20px, centered, letter-spacing 2px
+
+---
+
+DIMENSIONS: 960 x 1280 px
+
+---
+
+REJECT:
+- Stock photography
+- Smiling subjects
+- Money imagery (coins, bills, charts)
+- Wide or environmental shots
+- Decorative elements
