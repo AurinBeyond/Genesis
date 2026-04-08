@@ -51,3 +51,10 @@ Küsimuste korral: contact.puresoul@proton.me — lisa tellimuse ID.
 
 ## FILE NAME
 money-program-reset.pdf
+
+## SALES DOMAIN
+aurinbeyond.gumroad.com
+
+## PUBLISH DESTINATION
+Intended for manual upload to: https://aurinbeyond.gumroad.com
+Product is NOT live until published by human action inside Gumroad.
