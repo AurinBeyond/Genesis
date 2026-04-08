@@ -1,0 +1,15 @@
+{
+  "product_id": "test-launch",
+  "title": "SYSTEM TEST — Pipeline Simulation",
+  "status": "DRAFT",
+  "price_eur": 0,
+  "price_note": "Test entry only. Not a real product. Remove after human review confirms pipeline success.",
+  "gumroad_url": "https://aurinbeyond.gumroad.com/",
+  "preview_path": "preview/test-launch.html",
+  "gumroad_copy_path": null,
+  "pdf_path": null,
+  "created_at": "2026-04-08T18:54:29Z",
+  "last_updated": "2026-04-08T18:54:29Z",
+  "approved_by": null,
+  "notes": "PRODUCTION TEST entry. Created to simulate the metadata-to-preview pipeline. If preview/test-launch.html is accessible without 404 errors, the test is PASSED. Human must approve removal of this test entry."
+}

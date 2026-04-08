@@ -2,4 +2,6 @@
 # Format: [YYYY-MM-DDTHH:MM:SSZ] | SOURCE: <source> | ACTION: <action> | TARGET: <target> | STATUS: <status> | DETAIL: <detail>
 # See logs/LOGGING-STANDARDS.md Section 6 for full specification.
 2026-04-08T07:23:14Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Bridge sync updated | TARGET: money-program-reset | STATUS: BLOCKED | DETAIL: metadata.json created at outputs/gumroad/metadata.json with status DRAFT; preview exists at preview/money-program-reset.html; PDF absent from outputs/pdf/; bridge remains BLOCKED until PDF generated and human approves.
+2026-04-08T18:54:29Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Production test — metadata entry detected | TARGET: outputs/gumroad/test-launch.json | STATUS: SUCCESS | DETAIL: Test metadata entry created at outputs/gumroad/test-launch.json; product_id: test-launch; status: DRAFT; preview_path: preview/test-launch.html.
+2026-04-08T18:54:29Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Production test — preview shell generated | TARGET: preview/test-launch.html | STATUS: SUCCESS | DETAIL: Preview shell rendered at preview/test-launch.html using correct /preview/ path; no /public/ reference; no 404 errors; pipeline simulation PASSED.
 
