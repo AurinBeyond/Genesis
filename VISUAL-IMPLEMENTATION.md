@@ -40,6 +40,14 @@ These values govern every surface. Do not deviate.
 
 ## IMAGE RULES (all channels)
 
+**APPROVAL FILTER — apply before any image is placed on any surface:**
+
+```
+If image does not directly communicate the idea → DO NOT USE IT
+If image is decorative                          → REJECT
+If image creates emotional + conceptual clarity → APPROVE
+```
+
 | Rule | Enforcement |
 |------|-------------|
 | No stock photography | Hard block |

@@ -136,11 +136,23 @@ color: #d4af37;
 
 **Style:** Cinematic, symbolic, non-generic.
 
+**IMAGE APPROVAL FILTER**
+
+Before any image is used on any surface, apply this test in order:
+
+| Test | Result |
+|------|--------|
+| Does it directly communicate the idea? | If NO → **DO NOT USE IT** |
+| Is it decorative only (no conceptual function)? | If YES → **REJECT** |
+| Does it create emotional + conceptual clarity simultaneously? | If YES → **APPROVE** |
+
+One test. No exceptions. An image that passes rule 3 automatically passes rules 1 and 2.
+
 **Rules:**
 - No stock photography
 - No lifestyle images (people smiling at laptops)
 - No cartoon/illustration style
-- Images must be atmosphere, not explanation
+- Images must be atmosphere **and** meaning — not atmosphere alone
 - Images support the text — they do not replace it
 - Max 1 main visual per page section
 

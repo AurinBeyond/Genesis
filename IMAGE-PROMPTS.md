@@ -11,6 +11,16 @@
 
 These prompts are designed for AI image generation tools (Midjourney, DALL·E, Stable Diffusion, Flux, etc.).
 
+**IMAGE APPROVAL FILTER — apply before any image is used:**
+
+```
+If image does not directly communicate the idea → DO NOT USE IT
+If image is decorative                          → REJECT
+If image creates emotional + conceptual clarity → APPROVE
+```
+
+An image that creates emotional + conceptual clarity automatically satisfies the other two conditions. This is the only test.
+
 **Style rules across all images:**
 - Cinematic. Symbolic. Non-generic.
 - Near-black backgrounds (`#050505`)
