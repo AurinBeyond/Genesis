@@ -1,0 +1,23 @@
+{
+  "product_id": "matrix-financial-protocol",
+  "title": "Matrix Financial Protocol",
+  "status": "DRAFT",
+  "price_eur": 27,
+  "price_note": "Entry-level digital protocol. Canonical currency EUR.",
+  "gumroad_url": "https://aurinbeyond.gumroad.com/",
+  "preview_path": "preview/matrix-financial-protocol-index.html",
+  "chain": [
+    "preview/matrix-financial-protocol-index.html",
+    "preview/matrix-financial-protocol-vsl.html",
+    "preview/matrix-financial-protocol-offer.html",
+    "preview/matrix-financial-protocol-success.html",
+    "preview/matrix-financial-protocol-protocol.html",
+    "preview/matrix-financial-protocol-continuation.html"
+  ],
+  "gumroad_copy_path": null,
+  "pdf_path": null,
+  "created_at": "2026-04-09T19:00:14Z",
+  "last_updated": "2026-04-09T19:00:14Z",
+  "approved_by": null,
+  "notes": "DRAFT. 6-stage conversion chain generated in preview/. Bridge BLOCKED until PDF generated and human approves in logs/decisions.log."
+}
