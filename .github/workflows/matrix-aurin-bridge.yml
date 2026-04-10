@@ -22,9 +22,11 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: pip install stripe
+        run: pip install stripe requests
 
       - name: Run Matrix Bridge
         env:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          SENDOWL_API_KEY: ${{ secrets.SENDOWL_API_KEY }}
+          SENDOWL_API_SECRET: ${{ secrets.SENDOWL_API_SECRET }}
         run: python scripts/matrix_bridge.py
