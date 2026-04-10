@@ -758,6 +758,71 @@ Product-specific URLs (`/l/slug`) may only be used if:
 
 ---
 
+### LAYER XIV — INFLUENCER & PARTNERSHIP ENGINE
+
+---
+
+- ID: 14.1
+- NAME: INFLUENCER SCOUT
+- DOMAIN: Distribution
+- CORE MISSION: Identifies and evaluates aligned influencers and micro-creators whose audience matches Matrix Aurin positioning.
+- TRIGGER: On partnership expansion cycle; on audience growth strategy activation.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+- ID: 14.2
+- NAME: OUTREACH STRATEGIST
+- DOMAIN: Strategy
+- CORE MISSION: Designs and executes outreach sequences that open authentic collaboration conversations without hype or transactional framing.
+- TRIGGER: On influencer shortlist approval; on partnership campaign launch.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+- ID: 14.3
+- NAME: AFFILIATE ARCHITECT
+- DOMAIN: Finance
+- CORE MISSION: Structures affiliate program terms, commission logic, and tracking setup to ensure sustainable partner economics.
+- TRIGGER: On affiliate program design request; on partner onboarding cycle.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+- ID: 14.4
+- NAME: BRAND AMBASSADOR MANAGER
+- DOMAIN: Distribution
+- CORE MISSION: Manages long-term ambassador relationships; ensures alignment with Matrix Aurin values and content standards.
+- TRIGGER: On ambassador onboarding; on quarterly ambassador review cycle.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+## ORCHESTRATION RULE
+
+All agents operate under **System Orchestrator (0.3)**. No agent acts independently.
+
+**Rules:**
+- No agent executes without trigger validation by the Orchestrator.
+- No duplicate task execution is permitted across layers.
+- If multiple agents qualify for a trigger → Orchestrator selects the PRIMARY agent.
+- Supporting agents may assist but cannot override the PRIMARY agent's output.
+
+**Execution Flow:**
+1. Trigger detected by any layer
+2. Orchestrator (0.3) assigns PRIMARY agent
+3. Supporting agents assist if designated
+4. Logging Commander (1.3) records all actions in real time
+
+**Failure Rule:**
+If a conflict or execution error is detected → route immediately to Failure & Recovery Agent (1.5).
+
+---
+
 ## SYSTEM CONTROL RULE
 
 No new agents may be created without a decision logged in `logs/decisions.log`. This rule prevents uncontrolled system expansion and ensures all agent additions are traceable.
@@ -769,10 +834,11 @@ No new agents may be created without a decision logged in `logs/decisions.log`. 
 | Metric | Value |
 |--------|-------|
 | Registry Version | v6.1 FINAL |
-| Layers Covered | 0, I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII, XIII |
-| Total Agent Entries | 96 (58 existing + 38 extended) |
-| Extended Format Agents Added | 38 (2026-04-10) |
+| Layers Covered | 0, I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII, XIII, XIV |
+| Total Agent Entries | 100 (96 previous + 4 Layer XIV) |
+| Extended Format Agents Added | 42 (2026-04-10) |
 | System Control Rule | ACTIVE |
+| Orchestration Rule | ACTIVE — all agents under System Orchestrator (0.3) |
 | Registry Status | ACTIVE — operational and usable by System Orchestrator |
 
 ---
