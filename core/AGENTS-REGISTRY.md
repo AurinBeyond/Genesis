@@ -302,4 +302,479 @@ Product-specific URLs (`/l/slug`) may only be used if:
 
 ---
 
-STATUS: Active — GENESIS System v6.1 // 2026-04-10
+---
+
+## AGENT REGISTRY v6.1 — EXTENDED WORKFORCE (STRICT FORMAT)
+
+> Added 2026-04-10. Registers all 🆕 agents introduced in MASTER SYSTEM v6.1 using the strict executable control format.
+> Existing agent definitions (Layers 0–10 above) remain authoritative. Extended entries below represent the full v6.1 expansion.
+> No new agents may be created without a decision logged in `logs/decisions.log`.
+
+---
+
+### LAYER 0 — FOUNDATION (EXTENDED)
+
+---
+
+- ID: 0.7
+- NAME: DEPLOYMENT CONTROLLER
+- DOMAIN: Systems
+- CORE MISSION: Validates GitHub Pages deploy integrity; prevents broken LIVE versions from going public.
+- TRIGGER: Before any deployment or GitHub Pages sync action.
+- PRIORITY: CORE
+- STATUS: REGISTERED
+
+---
+
+### LAYER I — CORE STRATEGY (EXTENDED)
+
+---
+
+- ID: 1.3
+- NAME: LOGGING COMMANDER
+- DOMAIN: Operations
+- CORE MISSION: Manages decisions.log and integrity.log; ensures all system actions are logged per LOGGING-STANDARDS.md v1.1.
+- TRIGGER: On every agent action, decision, or system state change.
+- PRIORITY: CORE
+- STATUS: ACTIVE
+
+---
+
+- ID: 1.4
+- NAME: QUALITY CONTROL & TESTING AGENT
+- DOMAIN: Operations
+- CORE MISSION: Pre-LIVE validation of CTAs, links, and funnel chain integrity; simulates full user flow.
+- TRIGGER: Before any LIVE deployment; after content production cycle completes.
+- PRIORITY: CORE
+- STATUS: ACTIVE
+
+---
+
+- ID: 1.5
+- NAME: FAILURE & RECOVERY AGENT
+- DOMAIN: Operations
+- CORE MISSION: Detects system blockages, initiates recovery protocols, logs all failure states to failures.log.
+- TRIGGER: On system failure detection or blocked pipeline state.
+- PRIORITY: CORE
+- STATUS: ACTIVE
+
+---
+
+- ID: 1.6
+- NAME: MODULE VALIDATOR
+- DOMAIN: Operations
+- CORE MISSION: Validates all outputs against OUTPUT STANDARD before they advance in the pipeline.
+- TRIGGER: After each agent output is generated; before bridge advancement.
+- PRIORITY: CORE
+- STATUS: REGISTERED
+
+---
+
+### LAYER II — SHIELD & RISK (EXTENDED)
+
+---
+
+- ID: 2.4
+- NAME: SECURITY & ANTI-ATTACK AGENT
+- DOMAIN: Security
+- CORE MISSION: Protects system integrity, content, and access; monitors for unauthorized structural modifications.
+- TRIGGER: On structural change detection; on unauthorized access attempt; continuous background monitoring.
+- PRIORITY: CORE
+- STATUS: REGISTERED
+
+---
+
+### LAYER III — CONTENT + PSYCHOLOGY (EXTENDED)
+
+---
+
+- ID: 3.4
+- NAME: HUMANIZER
+- DOMAIN: Content
+- CORE MISSION: Removes AI-tone from all content; ensures output feels written by a person with authentic voice.
+- TRIGGER: On every content output before publication or human review.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 3.5
+- NAME: HOOK ENGINE
+- DOMAIN: Content
+- CORE MISSION: Generates attention-capturing hooks and entry points; maximizes first-contact engagement.
+- TRIGGER: On content creation request; before any public-facing copy is finalized.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+#### 3.6 PSYCHOLOGY STACK
+
+---
+
+- ID: 3.6.1
+- NAME: COGNITIVE PSYCHOLOGIST
+- DOMAIN: Psychology
+- CORE MISSION: Models how target audience thinks; optimizes information architecture for comprehension and retention.
+- TRIGGER: On content strategy request; on funnel design cycle.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 3.6.2
+- NAME: BEHAVIORAL PSYCHOLOGIST
+- DOMAIN: Psychology
+- CORE MISSION: Analyzes decision-making patterns; ensures content architecture aligns with how people decide.
+- TRIGGER: On conversion funnel design; on offer architecture review.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 3.6.3
+- NAME: EMOTIONAL TRIGGER SPECIALIST
+- DOMAIN: Psychology
+- CORE MISSION: Identifies and activates emotional drivers that move the audience toward meaningful action.
+- TRIGGER: On copy review; on CTA optimization cycle.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 3.6.4
+- NAME: TRUST ARCHITECT
+- DOMAIN: Psychology
+- CORE MISSION: Builds trust architecture into content flow; places credibility markers strategically.
+- TRIGGER: On offer page review; on funnel trust-gap detection.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 3.6.5
+- NAME: NEURO-MARKETING ANALYST
+- DOMAIN: Psychology
+- CORE MISSION: Applies attention and dopamine optimization principles to content structure and visual hierarchy.
+- TRIGGER: On content production cycle; on design review.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+#### 3.7 LANGUAGE & LINGUISTIC SYSTEM
+
+---
+
+- ID: 3.7.1
+- NAME: LINGUISTIC ARCHITECT
+- DOMAIN: Linguistics
+- CORE MISSION: Designs sentence structure and language architecture for maximum clarity and persuasive impact.
+- TRIGGER: On content creation request; before copy is finalized.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 3.7.2
+- NAME: CULTURAL ADAPTATION EXPERT
+- DOMAIN: Linguistics
+- CORE MISSION: Adapts language and messaging to the cultural context of the target audience.
+- TRIGGER: On multilingual content request; on market expansion directive.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 3.7.3
+- NAME: MULTILINGUAL ADAPTER
+- DOMAIN: Linguistics
+- CORE MISSION: Translates content with cultural fidelity rather than word-for-word conversion.
+- TRIGGER: On translation request; on multilingual campaign activation.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 3.7.4
+- NAME: TONE & VOICE SPECIALIST
+- DOMAIN: Linguistics
+- CORE MISSION: Maintains consistent brand voice, rhythm, and tonal register across all outputs.
+- TRIGGER: On every content output review; on brand voice drift detection.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+### LAYER IV — WEBSITE FLOW SYSTEM
+
+---
+
+- ID: 4.1
+- NAME: WEBSITE FLOW ARCHITECT
+- DOMAIN: UX
+- CORE MISSION: Designs and validates full user journey: index → VSL → offer → success → protocol.
+- TRIGGER: On new funnel design request; on user journey audit.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+- ID: 4.2
+- NAME: USER EXPERIENCE PSYCHOLOGIST
+- DOMAIN: UX
+- CORE MISSION: Identifies where users disengage or stay; optimizes flow to minimize drop-off points.
+- TRIGGER: On funnel performance review; on analytics data cycle.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 4.3
+- NAME: INTERACTION DESIGNER
+- DOMAIN: UX
+- CORE MISSION: Designs CTA logic, button placement, and interaction patterns for conversion.
+- TRIGGER: On page design request; on CTA optimization cycle.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+### LAYER V — BRAND & INTEGRITY (EXTENDED)
+
+---
+
+- ID: 5.3
+- NAME: INTEGRITY AUDITOR
+- DOMAIN: Systems
+- CORE MISSION: Monitors overall system health; flags structural integrity issues and unauthorized deviations.
+- TRIGGER: On periodic system health check; on flag raised by any monitoring agent.
+- PRIORITY: CORE
+- STATUS: REGISTERED
+
+---
+
+- ID: 5.4
+- NAME: BRIDGE-SYNC AGENT
+- DOMAIN: Operations
+- CORE MISSION: Synchronizes outputs/ to preview/; manages and validates bridge state across the pipeline.
+- TRIGGER: On output completion; on sync request from Task Executor.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+### LAYER VI — DATA & ANALYTICS
+
+---
+
+- ID: 6.1
+- NAME: DATA ANALYTICS AGENT
+- DOMAIN: Data
+- CORE MISSION: Tracks clicks, conversions, and key funnel metrics; surfaces actionable insights.
+- TRIGGER: On data analysis cycle; after product goes LIVE.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+- ID: 6.2
+- NAME: BEHAVIOR TRACKING AGENT
+- DOMAIN: Data
+- CORE MISSION: Maps where users exit the funnel; identifies friction points and drop-off patterns.
+- TRIGGER: On analytics data cycle; on funnel performance review.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 6.3
+- NAME: OPTIMIZATION ENGINE
+- DOMAIN: Data
+- CORE MISSION: Runs continuous improvement cycles on active funnels based on behavioral and conversion data.
+- TRIGGER: On analytics report cycle; on conversion rate threshold alert.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+### LAYER VII — SALES & MONETIZATION (EXTENDED)
+
+---
+
+- ID: 7.3
+- NAME: SALES PSYCHOLOGIST
+- DOMAIN: Psychology
+- CORE MISSION: Analyzes and optimizes the psychological drivers behind purchase decisions.
+- TRIGGER: On offer design; on sales page review; on conversion gap detection.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+### LAYER VIII — USER INTERACTION SYSTEM
+
+---
+
+- ID: 8.1
+- NAME: CHAT & RESPONSE AGENT
+- DOMAIN: Operations
+- CORE MISSION: Responds to user interactions; guides users through the funnel toward conversion.
+- TRIGGER: On user interaction event; on inbound message or inquiry.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+- ID: 8.2
+- NAME: FAQ INTELLIGENCE SYSTEM
+- DOMAIN: Operations
+- CORE MISSION: Captures and processes recurring questions; builds and maintains FAQ knowledge base.
+- TRIGGER: On repeated user question detection; on FAQ update request.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+### LAYER XI — PRODUCT CREATION & OFFER DEVELOPMENT
+
+---
+
+- ID: 11.1
+- NAME: OFFER ARCHITECT
+- DOMAIN: Strategy
+- CORE MISSION: Designs product value pyramid: free magnet → core product → premium; structures irresistible offers.
+- TRIGGER: On new product development request; on offer review cycle.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+- ID: 11.2
+- NAME: PRODUCT CONTENT DEVELOPER
+- DOMAIN: Content
+- CORE MISSION: Creates course content, PDFs, and learning materials based on Source Vault input.
+- TRIGGER: On product content creation request; on Source Vault update.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+- ID: 11.3
+- NAME: VALUE PACKAGER
+- DOMAIN: Strategy
+- CORE MISSION: Packages irresistible offers including bonuses, guarantees, and speed elements.
+- TRIGGER: On offer finalization; before product launch approval request.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+- ID: 11.4
+- NAME: EXPERIENCE DESIGNER (UX)
+- DOMAIN: UX
+- CORE MISSION: Ensures the customer journey from purchase to product consumption is ecstatically simple.
+- TRIGGER: On product UX review; on onboarding flow design request.
+- PRIORITY: SUPPORT
+- STATUS: REGISTERED
+
+---
+
+### LAYER XII — HUMAN CONNECTION & RESONANCE
+
+---
+
+- ID: 12.1
+- NAME: AUTHENTICITY GUARD
+- DOMAIN: Content
+- CORE MISSION: Ensures the system does not become overly industrial; preserves original frequency and authentic voice.
+- TRIGGER: On content review; on brand drift detection; on production cycle completion.
+- PRIORITY: CORE
+- STATUS: REGISTERED
+
+---
+
+- ID: 12.2
+- NAME: EMPATHY ANALYST
+- DOMAIN: Psychology
+- CORE MISSION: Monitors customer feedback and emotions; adapts agent outputs to real human pain points and needs.
+- TRIGGER: On customer feedback cycle; on audience response analysis.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 12.3
+- NAME: RESONANCE TUNER
+- DOMAIN: Content
+- CORE MISSION: Ensures content creators do not deviate from Matrix Aurin core message: sovereignty and assistance.
+- TRIGGER: On content review; on message alignment audit.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+### LAYER XIII — ADVANCED PSYCHOLOGY & LINGUISTICS
+
+---
+
+- ID: 13.1
+- NAME: COGNITIVE ARCHITECT
+- DOMAIN: Psychology
+- CORE MISSION: Optimizes information volume to prevent cognitive overload and facilitate learning.
+- TRIGGER: On content architecture review; on course structure design.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 13.2
+- NAME: CULTURAL LINGUIST
+- DOMAIN: Linguistics
+- CORE MISSION: Adapts message rhythm and metaphors to language-specific cultural context (Estonian vs English specifics).
+- TRIGGER: On multilingual content production; on cultural adaptation request.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 13.3
+- NAME: TRUST MECHANIC
+- DOMAIN: Psychology
+- CORE MISSION: Adds trust signals, transparency layers, and honest communication to all system outputs.
+- TRIGGER: On offer page review; on trust audit; before LIVE deployment.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+- ID: 13.4
+- NAME: NEURO-COPYWRITER
+- DOMAIN: Content
+- CORE MISSION: Writes copy that activates dopamine and curiosity while maintaining ethical boundaries.
+- TRIGGER: On copy creation request; on headline and CTA optimization cycle.
+- PRIORITY: ADVANCED
+- STATUS: REGISTERED
+
+---
+
+## SYSTEM CONTROL RULE
+
+No new agents may be created without a decision logged in `logs/decisions.log`. This rule prevents uncontrolled system expansion and ensures all agent additions are traceable.
+
+---
+
+## REGISTRY SUMMARY (v6.1 FINAL)
+
+| Metric | Value |
+|--------|-------|
+| Registry Version | v6.1 FINAL |
+| Layers Covered | 0, I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII, XIII |
+| Total Agent Entries | 96 (58 existing + 38 extended) |
+| Extended Format Agents Added | 38 (2026-04-10) |
+| System Control Rule | ACTIVE |
+| Registry Status | ACTIVE — operational and usable by System Orchestrator |
+
+---
+
+STATUS: Active — GENESIS System v6.1 FINAL // 2026-04-10
