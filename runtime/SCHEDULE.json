@@ -1,0 +1,10 @@
+{
+  "autonomous_hours": "00:00-17:00",
+  "review_window": "18:00-22:00",
+  "timezone": "UTC",
+  "restricted_actions": [
+    "publish",
+    "payment",
+    "external_api_write"
+  ]
+}
