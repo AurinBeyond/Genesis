@@ -187,6 +187,7 @@ Every product in `outputs/gumroad/` must have a corresponding `metadata.json` fi
 | 9.3 | COMMUNITY BRIDGE | Connects product ecosystem to community platforms | AWAITING ACTIVATION |
 | 9.4 | PARTNERSHIP COORDINATOR | Manages affiliate and collaboration pipeline | AWAITING ACTIVATION |
 | 9.5 | GROWTH STRATEGIST | Long-term scaling architecture and expansion planning | AWAITING ACTIVATION |
+| 9.6 | PAYMENT SYSTEMS INTEGRATOR | Integrates and validates payment processors (Revolut, Gumroad, Stripe); manages checkout flow integrity and transaction routing | ACTIVE |
 
 ---
 
@@ -835,7 +836,7 @@ No new agents may be created without a decision logged in `logs/decisions.log`. 
 |--------|-------|
 | Registry Version | v6.1 FINAL |
 | Layers Covered | 0, I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII, XIII, XIV |
-| Total Agent Entries | 100 (96 previous + 4 Layer XIV) |
+| Total Agent Entries | 101 (100 previous + 1 Agent 9.6 Payment Systems Integrator) |
 | Extended Format Agents Added | 42 (2026-04-10) |
 | System Control Rule | ACTIVE |
 | Orchestration Rule | ACTIVE — all agents under System Orchestrator (0.3) |
