@@ -38,3 +38,7 @@
 2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit — files confirmed active and protected | TARGET: core/AGENT-BASE.md, core/AGENTS-REGISTRY.md | STATUS: SUCCESS | DETAIL: Both core files are active, locked, and serve as constitutional law and single source of truth respectively. No modifications permitted without human approval.
 
 2026-04-08T07:42:41Z | SOURCE: GENESIS-ORCHESTRATOR | ACTION: Ecological audit complete | TARGET: GENESIS repository root | STATUS: SUCCESS | DETAIL: 15 files/directories flagged for human review; 0 deletions performed; all flagged items preserved in place per Ecological Preservation Protocol Amendment.
+
+2026-04-10T08:46:58Z | Agent 1.3 | INTEGRITY_SCAN_START | SUCCESS | Repository-wide /public/ contamination scan initiated; scanning all .html .md .json .yml files.
+2026-04-10T08:46:58Z | Agent 1.3 | INTEGRITY_SCAN_COMPLETE | SUCCESS | /public/ scan complete; no active path contamination found; 3 references found are all non-contaminating: test-launch.html (validation message), AGENTS-REGISTRY.md (rule description), AGENT-BASE.md (prohibition rule). Historical contamination in updates.log already corrected. System clean.
+2026-04-10T08:46:58Z | Agent 1.3 | LOGGING_SYSTEM_VERIFIED | SUCCESS | All 6 log files verified present and active; headers added to decisions.log, failures.log, updates.log, memory.log; bridge-sync.log and integrity.log headers already existed. Logging authority ACTIVE.

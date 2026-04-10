@@ -1,6 +1,6 @@
 # LOGGING STANDARDS — GENESIS SYSTEM
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** Active  
 **Scope:** All agents, workflows, and human operators  
 **Alignment:** GENESIS-LAWS.md, TASKMASTER.md  
@@ -42,6 +42,7 @@ This standard governs the following log files:
 | `logs/decisions.log` | Record of approved decisions and operational direction changes |
 | `logs/bridge-sync.log` | Record of product bridge state across outputs, preview, and storefront |
 | `logs/integrity.log` | Record of ecological preservation audit status and human-review flags |
+| `logs/memory.log` | Record of persistent structural laws, forbidden patterns, and cross-session context managed by Memory & Context Agent (0.6) |
 
 No other log files are authorized without a GENESIS-LAWS-aligned decision recorded in `decisions.log`.
 
@@ -220,6 +221,30 @@ Every decision entry must state whether it was approved by a human or triggered 
 ```
 
 **Authorized writers:** TASK-EXECUTOR, GENESIS-ORCHESTRATOR, human operator, workflow runner.
+
+---
+
+### `memory.log`
+
+**Purpose:** Persistent structural laws and cross-session context managed by Memory & Context Agent (0.6).
+
+**May contain:**
+- Forbidden legacy patterns (e.g. `/public/` path contamination)
+- Structural truths the system must not violate
+- Cross-session context snapshots and system state records
+- Repeated mistake patterns that must be prevented
+
+**Must not contain:**
+- Task execution updates (use `updates.log`)
+- Failures or errors (use `failures.log`)
+- Decisions (use `decisions.log`)
+
+**Required format:**
+```
+[TIMESTAMP] | SOURCE: <agent or human> | ACTION: <law or context recorded> | TARGET: <scope> | STATUS: SUCCESS | DETAIL: <one sentence, factual>
+```
+
+**Authorized writers:** Memory & Context Agent (0.6), GENESIS-ORCHESTRATOR, human operator.
 
 ---
 
