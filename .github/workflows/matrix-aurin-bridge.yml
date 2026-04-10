@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write
 
     steps:
       - name: Checkout code
@@ -24,9 +24,30 @@ jobs:
       - name: Install dependencies
         run: pip install stripe requests
 
-      - name: Run Matrix Bridge
+      - name: Run Matrix Bridge and capture payment link
+        id: bridge
         env:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           SENDOWL_API_KEY: ${{ secrets.SENDOWL_API_KEY }}
           SENDOWL_API_SECRET: ${{ secrets.SENDOWL_API_SECRET }}
-        run: python scripts/matrix_bridge.py
+        run: |
+          OUTPUT=$(python scripts/matrix_bridge.py)
+          echo "$OUTPUT"
+          PAYMENT_URL=$(echo "$OUTPUT" | grep '^payment_link:' | head -n1 | awk '{print $2}')
+          echo "payment_url=$PAYMENT_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Inject payment link into index.html
+        if: steps.bridge.outputs.payment_url != ''
+        run: |
+          URL="${{ steps.bridge.outputs.payment_url }}"
+          sed -i "s|href=\"#LINK\"|href=\"$URL\"|g" index.html
+          sed -i "s|href=\"https://buy.stripe.com/test_[^\"]*\"|href=\"$URL\"|g" index.html
+
+      - name: Commit and push updated index.html
+        if: steps.bridge.outputs.payment_url != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "Lisatud reaalne makselink"
+          git push origin main
