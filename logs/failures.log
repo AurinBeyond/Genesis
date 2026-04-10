@@ -1,0 +1,4 @@
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | EXECUTE | 001 | FAILED | Traceback (most recent call last):
+  File "/home/runner/work/Genesis/Genesis/scripts/matrix_bridge.py", line 21, in <module>
+    import stripe
+ModuleNotFoundError: No module named 'stripe'

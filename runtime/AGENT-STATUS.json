@@ -1,9 +1,24 @@
 {
   "agents": {
     "0.3 System Orchestrator": {
-      "last_task": "T-001",
+      "last_task": "004",
       "status": "IDLE",
-      "updated_at": "2026-04-10T16:24:55Z"
+      "updated_at": "2026-04-10T17:17:35Z"
+    },
+    "SysArch": {
+      "last_task": null,
+      "status": "IDLE",
+      "updated_at": "2026-04-10T17:16:00Z"
+    },
+    "ContentGen": {
+      "last_task": null,
+      "status": "IDLE",
+      "updated_at": "2026-04-10T17:16:00Z"
+    },
+    "Orchestrator": {
+      "last_task": null,
+      "status": "ACTIVE",
+      "updated_at": "2026-04-10T17:16:00Z"
     }
   }
 }

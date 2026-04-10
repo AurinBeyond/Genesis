@@ -13,3 +13,18 @@
 2026-04-10T16:37:14Z | 0.3 System Orchestrator | GENERATE | /home/runner/work/Genesis/Genesis/runtime/SUMMARY.md | SUCCESS | SUMMARY.md updated
 2026-04-10T16:37:14Z | 0.3 System Orchestrator | TICK | iteration=1 | SUCCESS | mode=AUTONOMOUS
 2026-04-10T16:37:14Z | 0.3 System Orchestrator | STOP | orchestrator | SUCCESS | Single-tick mode; exiting after iteration 1
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | START | queue_engine | PENDING | Queue engine starting
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | MODE | queue_engine | SUCCESS | Current mode: RESTRICTED
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | LOCK | 001 | RUNNING | Locking task: Kontrolli Stripe LIVE ühendust
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | COMPLETE | 001 | BLOCKED | Task 'Kontrolli Stripe LIVE ühendust' → BLOCKED
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | LOCK | 002 | RUNNING | Locking task: Genereeri uue toote meta-info
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | EXECUTE | 002 | REVIEW_REQUIRED | No automated handler; flagged for human review
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | COMPLETE | 002 | REVIEW | Task 'Genereeri uue toote meta-info' → REVIEW
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | LOCK | 003 | RUNNING | Locking task: Webhooki testimine (Ping)
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | EXECUTE | 003 | REVIEW_REQUIRED | No automated handler; flagged for human review
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | COMPLETE | 003 | REVIEW | Task 'Webhooki testimine (Ping)' → REVIEW
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | LOCK | 004 | RUNNING | Locking task: SUMMARY.md koostamine Annale
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | EXECUTE | 004 | SUCCESS | SUMMARY.md will be written by engine
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | COMPLETE | 004 | DONE | Task 'SUMMARY.md koostamine Annale' → DONE
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | GENERATE | /home/runner/work/Genesis/Genesis/runtime/SUMMARY.md | SUCCESS | SUMMARY.md updated
+2026-04-10T17:17:35Z | 0.3 System Orchestrator | END | queue_engine | SUCCESS | Run complete — processed: 3, failed: 1, mode: RESTRICTED
