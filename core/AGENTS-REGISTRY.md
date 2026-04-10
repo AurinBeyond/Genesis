@@ -1,9 +1,10 @@
 # AGENTS-REGISTRY — GENESIS System
 
-**Version:** 1.1
+**Version:** 6.1
 **Status:** Active
 **Authority:** GENESIS-LAWS.md, AGENT-BASE.md
 **Maintained by:** GENESIS-ORCHESTRATOR + human operator
+**Initialized:** 2026-04-10T08:40:14Z
 
 ---
 
@@ -24,7 +25,7 @@ All agents must reference this registry for path resolution. Any path not listed
 | `outputs/pdf/` | Deliverable PDF files | Active |
 | `outputs/images/` | Product and brand image assets | Active |
 | `outputs/run-log/` | Execution run logs (verbose) | Active |
-| `logs/` | Structured system logs: updates.log, failures.log, decisions.log, bridge-sync.log, integrity.log | Active |
+| `logs/` | Structured system logs: updates.log, failures.log, decisions.log, bridge-sync.log, integrity.log, memory.log | Active |
 | `core/` | System-level configuration, registry, and constitutional law (`AGENT-BASE.md`) | Active |
 | `assets/` | CSS, JS, and static assets | Active |
 
@@ -65,6 +66,138 @@ Every product in `outputs/gumroad/` must have a corresponding `metadata.json` fi
 ---
 
 ## AGENT DEFINITIONS
+
+---
+
+### LAYER 0 — CORE ENGINE
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 0.1 | CORE INITIALIZER | System bootstrap, environment check, path authority confirmation | AWAITING ACTIVATION |
+| 0.2 | SYSTEM MONITOR | Real-time health monitoring of all active agents and log pipelines | AWAITING ACTIVATION |
+| 0.3 | SYSTEM ORCHESTRATOR | Routes directives, sequences agent execution, manages inter-layer communication | ACTIVE |
+| 0.4 | PATH AUTHORITY | Enforces canonical path rules; rejects all /public/ references | ACTIVE |
+| 0.5 | SCHEMA VALIDATOR | Validates all metadata.json and log entries against LOGGING-STANDARDS.md | AWAITING ACTIVATION |
+| 0.6 | MEMORY & CONTEXT AGENT | Stores session state, system origin point, and cross-session context in logs/memory.log | ACTIVE |
+
+---
+
+### LAYER 1 — ARCHITECTURE
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 1.1 | GENESIS ARCHITECT | Master system designer; defines structural laws and sandbox environment | ACTIVE |
+| 1.2 | STRUCTURE BUILDER | Scaffolds HTML, directory trees, and staging pipeline components | ACTIVE |
+| 1.3 | BRAND ENFORCER | Enforces Design DNA: Black (#050505), Gold (#d4af37), Cinzel/Premium typography | ACTIVE |
+| 1.4 | QUALITY CONTROL AGENT | Audits all internal links, validates 6-stage chain integrity, reports to failures.log | ACTIVE |
+| 1.5 | FAILURE & RECOVERY | Monitors failures.log; initiates recovery protocols; logs all error states | ACTIVE |
+
+---
+
+### LAYER 2 — CONTENT PRODUCTION
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 2.1 | CONTENT STRATEGIST | Defines product narrative arc, information hierarchy, and conversion structure | AWAITING ACTIVATION |
+| 2.2 | COPYWRITER | Produces sales copy, email sequences, and on-page content | AWAITING ACTIVATION |
+| 2.3 | COURSE CREATOR | Generates structured micro-courses and Gumroad-ready learning modules | ACTIVE |
+| 2.4 | PDF GENERATOR | Converts approved content to deliverable PDF outputs in outputs/pdf/ | AWAITING ACTIVATION |
+| 2.5 | PRODUCT PACKAGER | Assembles final product bundle: PDF + metadata + Gumroad copy | AWAITING ACTIVATION |
+
+---
+
+### LAYER 3 — HUMAN CONNECTION
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 3.1 | TONE CALIBRATOR | Aligns language register to brand voice; removes corporate detachment | AWAITING ACTIVATION |
+| 3.2 | STORY ARCHITECT | Structures narrative arcs that create emotional recognition and resonance | AWAITING ACTIVATION |
+| 3.3 | EMOTIONAL INTELLIGENCE | Maps emotional journey of reader; ensures each stage lands with precision | AWAITING ACTIVATION |
+| 3.4 | HUMANIZER ❤️ | AI-kõla eemaldamine ja emotsionaalne side; makes content feel written by a person | AWAITING ACTIVATION |
+| 3.5 | VULNERABILITY EDITOR | Reviews for authentic vulnerability; removes performative or manufactured depth | AWAITING ACTIVATION |
+
+---
+
+### LAYER 4 — VISUAL & DESIGN
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 4.1 | UI ARCHITECT | Designs page layout and UX flow for all preview HTML files | ACTIVE |
+| 4.2 | DESIGN DNA ENFORCER | Enforces Black/Gold minimalist aesthetic across all HTML outputs | ACTIVE |
+| 4.3 | TYPOGRAPHY GUARDIAN | Ensures Cinzel/premium fonts, correct sizing and letter-spacing are applied | ACTIVE |
+| 4.4 | VISUAL FLOW OPTIMIZER | Optimizes reading flow and visual hierarchy within each stage page | AWAITING ACTIVATION |
+| 4.5 | BRAND CONSISTENCY MONITOR | Audits all pages for design consistency; flags deviations | AWAITING ACTIVATION |
+
+---
+
+### LAYER 5 — DIGITAL PIPELINE
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 5.1 | HTML RENDERER | Generates and renders all HTML preview files in /preview/ | ACTIVE |
+| 5.2 | STAGING CONTROLLER | Manages /preview/ as isolated sandbox; enforces Draft status on all files | ACTIVE |
+| 5.3 | PUBLISH GATE KEEPER | Master switch; blocks all public sync until "Publish" command received | ACTIVE |
+| 5.4 | LINK VALIDATOR | Verifies all internal and external links; logs broken links to failures.log | ACTIVE |
+| 5.5 | ASSET MANAGER | Tracks and manages CSS, JS, and image assets in assets/ directory | AWAITING ACTIVATION |
+
+---
+
+### LAYER 6 — DISTRIBUTION
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 6.1 | GUMROAD BRIDGE | Manages bridge-sync.log; orchestrates file movement to Gumroad | ACTIVE |
+| 6.2 | METADATA ARCHITECT | Creates and validates all metadata.json files per product metadata standard | ACTIVE |
+| 6.3 | PRICE GUARDIAN | Validates pricing; flags any price changes for human approval | AWAITING ACTIVATION |
+| 6.4 | STORE CURATOR | Manages Gumroad store presentation; base URL: https://aurinbeyond.gumroad.com/ | AWAITING ACTIVATION |
+| 6.5 | LAUNCH SEQUENCER | Coordinates multi-stage product launch timing and activation order | AWAITING ACTIVATION |
+
+---
+
+### LAYER 7 — ANALYTICS & INTELLIGENCE
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 7.1 | PERFORMANCE MONITOR | Tracks key metrics post-launch; logs to updates.log | AWAITING ACTIVATION |
+| 7.2 | CONVERSION ANALYST | Analyses funnel conversion rates across 6-stage chain | AWAITING ACTIVATION |
+| 7.3 | FEEDBACK PROCESSOR | Processes customer feedback; surfaces insights for product iteration | AWAITING ACTIVATION |
+| 7.4 | MARKET INTELLIGENCE | Tracks competitive landscape and positioning signals | AWAITING ACTIVATION |
+| 7.5 | OPTIMIZATION ENGINE | Runs continuous improvement cycles on active funnels | AWAITING ACTIVATION |
+
+---
+
+### LAYER 8 — SECURITY & INTEGRITY
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 8.1 | INTEGRITY GUARDIAN | Monitors integrity.log; flags any unauthorized structural changes | ACTIVE |
+| 8.2 | ECOLOGICAL PRESERVATION AGENT | Ensures no files are deleted without human approval in decisions.log | ACTIVE |
+| 8.3 | AUDIT TRAIL KEEPER | Maintains immutable log history; prevents log modification | ACTIVE |
+| 8.4 | CONSENT LAYER (C-LAYER) | Manages user consent and data handling compliance | AWAITING ACTIVATION |
+| 8.5 | GATEKEEPER | Final validation before any action crosses sandbox boundary | ACTIVE |
+
+---
+
+### LAYER 9 — GROWTH & SCALING
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 9.1 | FUNNEL ARCHITECT | Designs multi-product funnel structures and upsell paths | AWAITING ACTIVATION |
+| 9.2 | SEQUENCE BUILDER | Builds automated email and content delivery sequences | AWAITING ACTIVATION |
+| 9.3 | COMMUNITY BRIDGE | Connects product ecosystem to community platforms | AWAITING ACTIVATION |
+| 9.4 | PARTNERSHIP COORDINATOR | Manages affiliate and collaboration pipeline | AWAITING ACTIVATION |
+| 9.5 | GROWTH STRATEGIST | Long-term scaling architecture and expansion planning | AWAITING ACTIVATION |
+
+---
+
+### LAYER 10 — ORCHESTRATION
+
+| ID | Agent Name | Role | Status |
+|----|-----------|------|--------|
+| 10.1 | MASTER COORDINATOR | Oversees all 10 layers; resolves inter-agent conflicts; escalates to human | ACTIVE |
+| 10.2 | GENESIS COMPLETE | Final validation agent; confirms system readiness before any public activation | ACTIVE |
+
+---
 
 ### GENESIS-ORCHESTRATOR
 - **Role:** Routes tasks, enforces system laws, maintains log integrity.
@@ -169,4 +302,4 @@ Product-specific URLs (`/l/slug`) may only be used if:
 
 ---
 
-STATUS: Active — GENESIS System // 2026-04-08
+STATUS: Active — GENESIS System v6.1 // 2026-04-10
