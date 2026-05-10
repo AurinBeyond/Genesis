@@ -1,0 +1,15 @@
+{
+  "audio_layers": {
+    "base": "Close-mic soft rain against window",
+    "detail": "Faint indoor ambience (warm, safe)",
+    "music": "Minimalist piano (3-4 notes with air)",
+    "voice": "Grounded human proximity (no reverb, no announcer)"
+  },
+  "voice_parameters": {
+    "speed": 0.85,
+    "pause_duration": "strategic",
+    "tone": "Conversational relief"
+  },
+  "file_format": "mp3",
+  "bitrate": "320kbps"
+}
