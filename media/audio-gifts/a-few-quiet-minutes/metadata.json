@@ -4,9 +4,10 @@
   "emotional_objective": "Relief",
   "target_audience": "Mentally overloaded humans",
   "placement": ["Landing Page", "Beta Welcome Flow"],
-  "synchronization": {
+  "synthronization": {
     "lp_agent": "trust-architecture-aligned",
     "marketing_agent": "human-clarity-verified",
     "hub_layer": "precision-routing-approved"
-  }
+  },
+  "status": "draft"
 }
